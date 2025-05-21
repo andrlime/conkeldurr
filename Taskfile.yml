@@ -1,0 +1,29 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  build:
+    cmds:
+      - dune clean
+      - dune build
+    silent: true
+    aliases:
+      - b
+  run:
+    cmds:
+      - dune exec timburr
+    silent: true
+    aliases:
+      - run
+      - r
+  format:
+    cmds:
+      - dune fmt
+    silent: true
+    aliases:
+      - fmt
+      - f
