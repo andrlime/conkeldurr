@@ -53,9 +53,9 @@ env "AWS_IAM_IDENTITY"
 env "AWS_SECRET_KEY"
 env "AWS_S3_BUCKET"
 env "AWS_BUCKET_PATH"
-env "TARGET_VARIABLE_NAME" "ENV_VARIABLE_NAME"
+env "ENV_VARIABLE_NAME" "TARGET_VARIABLE_NAME"
 ```
-If there is one string, then it writes the value to that string for later reference. If there are two strings, then it behaves as `env dest src`. The AWS config keys are hard coded as
+If there is one string, then it writes the value to that string for later reference. If there are two strings, then it behaves as `env src dest`. The AWS config keys are hard coded as
 ```
 env "AWS_IAM_IDENTITY"
 env "AWS_SECRET_KEY"

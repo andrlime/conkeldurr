@@ -1,10 +1,17 @@
 open Cmdliner
 open Timburr
 
-let hello_world (msg : string) (msg2 : string) =
-  Example.print_each_character msg;
-  Example.print_each_character msg2
+let timburr_process_file (input_file_name : string) (_output_file_name : string) =
+  let _ =
+    input_file_name
+    |> Read_files.read_file_into_lines
+    |> Read_files.cleanup_lines
+    |> Parse_ir.parse_all_lines_to_ir
+  in
+  print_endline "-----end------"
 ;;
+
+(* |> List.iter (fun (_number, content) -> print_endline content) *)
 
 let input_file_arg =
   let doc = "A file to interpret, provided via --input or -i." in
@@ -17,6 +24,6 @@ let output_file_arg =
 ;;
 
 let main_cmd =
-  let term = Term.(const hello_world $ input_file_arg $ output_file_arg) in
+  let term = Term.(const timburr_process_file $ input_file_arg $ output_file_arg) in
   Cmd.v (Cmd.info "timburr" ~version:"%%VERSION%%") term
 ;;
