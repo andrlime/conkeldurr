@@ -7,6 +7,7 @@ let timburr_process_file (input_file_name : string) (_output_file_name : string)
     |> Read_files.read_file_into_lines
     |> Read_files.cleanup_lines
     |> Parse_ir.parse_all_lines_to_ir
+    |> Validate_ir.validate_all_lines
   in
   print_endline "-----end------"
 ;;

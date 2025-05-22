@@ -41,3 +41,9 @@ exception InvalidEnvCommand of string
 let invalid_env_command_factory (line : scanned_line_list) =
   InvalidEnvCommand (flatten_scanned_line_list line)
 ;;
+
+exception FileContainsInvalidLines of string
+
+let invalid_file_factory () =
+  FileContainsInvalidLines "File contains invalid input, check logs for details."
+;;

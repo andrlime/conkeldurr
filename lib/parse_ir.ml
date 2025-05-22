@@ -1,9 +1,29 @@
 open Types
 
+(** [parse_literal_constant_value (constant : string)] Deduce if a constant value should be quoted or not *)
+let parse_literal_constant_value (constant : string) : const_value_type_t =
+  let is_int =
+    try
+      ignore (int_of_string constant);
+      true
+    with
+    | Failure _ -> false
+  in
+  let is_float =
+    try
+      ignore (float_of_string constant);
+      true
+    with
+    | Failure _ -> false
+  in
+  if is_int || is_float then Number constant else String constant
+;;
+
 (** [parse_const (line : scanned_line_list)] Takes a file_line that starts with const and builds the command struct *)
 let parse_const (line : scanned_line_list) : timburr_function =
   match line with
-  | [ "const"; _constant_value; variable_name ] -> Const (String "", variable_name)
+  | [ "const"; constant_value; variable_name ] ->
+    Const (parse_literal_constant_value constant_value, variable_name)
   | _ -> raise (Exceptions.invalid_const_call_factory line)
 ;;
 
@@ -26,8 +46,8 @@ let parse_dump (line : scanned_line_list) : timburr_function =
 (** [parse_env (line : scanned_line_list)] Takes a file_line that starts with env and builds the command struct *)
 let parse_env (line : scanned_line_list) : timburr_function =
   match line with
-  | [ "env"; src; dest ] -> EnvCopy (src, dest)
-  | [ "env"; dest ] -> EnvSet dest
+  | [ "env"; src; dest ] -> Env (src, dest)
+  | [ "env"; dest ] -> Env (dest, dest)
   | _ -> raise (Exceptions.invalid_env_command_factory line)
 ;;
 

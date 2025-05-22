@@ -9,7 +9,7 @@ type s3_bucket_name_t = string
 type scanned_line_list = string list
 
 type const_value_type_t =
-  | Number of int
+  | Number of string
   | String of string
 
 type timburr_function =
@@ -18,8 +18,7 @@ type timburr_function =
   | ParseTyped of file_name_t * interface_name_t * variable_name_t
   | ParseUntyped of file_name_t * variable_name_t
   | Dump of file_name_t
-  | EnvCopy of env_name_t * env_name_t
-  | EnvSet of env_name_t
+  | Env of env_name_t * env_name_t
   | FlushBucket of s3_bucket_name_t
 
 type spreadsheet_column_t =
