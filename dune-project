@@ -8,6 +8,7 @@
  (github andrlime/timburr))
 
 (authors "Andrew Li <andrewli@u.northwestern.edu>")
+(maintainers "Andrew Li <andrewli@u.northwestern.edu>")
 
 (license MIT)
 
@@ -15,6 +16,6 @@
  (name timburr)
  (synopsis "CSV to React build-time content streamer")
  (description "Injects static content to static pages without needing to modify frontend code by compiling CSV schema to Typescript object arrays.")
- (depends ocaml)
+ (depends dune ocaml ocamlformat ounit2)
  (tags
-  ("compiler" "react")))
+  ("ocaml" "dsl" "cli" "codegen" "csv" "aws" "compiler" "react")))

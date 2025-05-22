@@ -1,6 +1,7 @@
 open Types
 
 let is_not_space (character : char) : bool = character <> ' ' && character <> '\t'
+let quote (str : string) : string = "\"" ^ str ^ "\""
 
 let scan_line (line_content : file_content_t) : scanned_line_list =
   let length = String.length line_content in
@@ -18,7 +19,7 @@ let scan_line (line_content : file_content_t) : scanned_line_list =
           incr starting_ref
         done;
         let token =
-          "\"" ^ String.sub line_content (index + 1) (!starting_ref - index - 1) ^ "\""
+          quote @@ String.sub line_content (index + 1) (!starting_ref - index - 1)
         in
         scan (!starting_ref + 1) (token :: tokens)
       | _ ->

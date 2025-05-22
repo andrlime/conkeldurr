@@ -3,14 +3,17 @@ opam-version: "2.0"
 synopsis: "CSV to React build-time content streamer"
 description:
   "Injects static content to static pages without needing to modify frontend code by compiling CSV schema to Typescript object arrays."
+maintainer: ["Andrew Li <andrewli@u.northwestern.edu>"]
 authors: ["Andrew Li <andrewli@u.northwestern.edu>"]
 license: "MIT"
-tags: ["compiler" "react"]
+tags: ["ocaml" "dsl" "cli" "codegen" "csv" "aws" "compiler" "react"]
 homepage: "https://github.com/andrlime/timburr"
 bug-reports: "https://github.com/andrlime/timburr/issues"
 depends: [
   "dune" {>= "3.18"}
   "ocaml"
+  "ocamlformat"
+  "ounit2"
   "odoc" {with-doc}
 ]
 build: [
