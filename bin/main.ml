@@ -1,3 +1,4 @@
-open Timburr
+open Cmdliner
 
-let () = Example.print_each_character "Hello, World!"
+let main () = Cmd.eval Cli.main_cmd
+let () = if !Sys.interactive then () else exit (main ())
