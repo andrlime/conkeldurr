@@ -3,6 +3,9 @@ open Types
 (**
 [is_not_ts_keyword (name : variable_name_t)]
 Validates that a variable/interface name is not accidentally a TypeScript keyword
+
+NOTE:
+Switch this to hash set
 *)
 let is_not_ts_keyword (name : variable_name_t) : bool =
   match name with

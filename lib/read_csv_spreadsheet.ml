@@ -12,6 +12,7 @@ let rec transpose = function
   | rows -> List.map List.hd rows :: transpose (List.map List.tl rows)
 ;;
 
+(** [validate_csv_size (loaded_csv : string list list)] Ensure that a CSV does not have zero rows or zero columns *)
 let validate_csv_size (loaded_csv : string list list) : string list list =
   let column_count = List.length loaded_csv in
   if column_count == 0
@@ -34,6 +35,11 @@ let read_header (header : string) : spreadsheet_column_type_t * spreadsheet_colu
     | [] | _ -> raise (Exceptions.invalid_csv_spreadsheet_factory ()))
 ;;
 
+(**
+[read (path : string)]
+Open a CSV spreadsheet by path and convert it to parsed_spreadsheet_t IR
+TODO: When columns don't have values in all rows, flag it as optional
+*)
 let read (path : string) : parsed_spreadsheet_t =
   Csv.load path
   |> transpose
