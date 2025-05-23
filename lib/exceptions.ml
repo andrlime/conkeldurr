@@ -47,3 +47,16 @@ exception FileContainsInvalidLines of string
 let invalid_file_factory () =
   FileContainsInvalidLines "File contains invalid input, check logs for details."
 ;;
+
+exception InvalidCsvSpreadsheet of string
+
+let invalid_csv_spreadsheet_factory () =
+  InvalidCsvSpreadsheet "Invalid CSV spreadsheet. Make sure data exists!"
+;;
+
+exception InvalidCsvHeader of string
+
+let invalid_csv_header_factory () =
+  InvalidCsvHeader
+    "Invalid CSV header! Make sure to only include one : delimiter per column"
+;;

@@ -6,7 +6,7 @@ let str_contains (str : string) (key : string) =
   length_of_str >= length_of_key && String.sub str 0 length_of_key = key
 ;;
 
-let test test_name test_function =
+let test (test_name : string) (test_function : test_fun) =
   let is_disabled = str_contains test_name "DISABLED" in
   let is_skip = str_contains test_name "SKIP" in
   let is_todo = str_contains test_name "TODO" in

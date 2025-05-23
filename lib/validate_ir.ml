@@ -1,12 +1,95 @@
 open Types
 
 (**
+[is_not_ts_keyword (name : variable_name_t)]
+Validates that a variable/interface name is not accidentally a TypeScript keyword
+*)
+let is_not_ts_keyword (name : variable_name_t) : bool =
+  match name with
+  | "abstract"
+  | "any"
+  | "as"
+  | "asserts"
+  | "async"
+  | "await"
+  | "boolean"
+  | "break"
+  | "case"
+  | "catch"
+  | "class"
+  | "const"
+  | "continue"
+  | "debugger"
+  | "declare"
+  | "default"
+  | "delete"
+  | "do"
+  | "else"
+  | "enum"
+  | "export"
+  | "extends"
+  | "false"
+  | "finally"
+  | "for"
+  | "from"
+  | "function"
+  | "get"
+  | "if"
+  | "implements"
+  | "import"
+  | "in"
+  | "infer"
+  | "instanceof"
+  | "interface"
+  | "is"
+  | "keyof"
+  | "let"
+  | "module"
+  | "namespace"
+  | "never"
+  | "new"
+  | "null"
+  | "number"
+  | "object"
+  | "of"
+  | "package"
+  | "private"
+  | "protected"
+  | "public"
+  | "readonly"
+  | "require"
+  | "return"
+  | "set"
+  | "static"
+  | "string"
+  | "super"
+  | "switch"
+  | "symbol"
+  | "this"
+  | "throw"
+  | "true"
+  | "try"
+  | "type"
+  | "typeof"
+  | "undefined"
+  | "unique"
+  | "unknown"
+  | "var"
+  | "void"
+  | "while"
+  | "with"
+  | "yield" -> false
+  | _ -> true
+;;
+
+(**
 [validate_ts_name (name : variable_name_t)]
 Validates an variable_name or InterfaceName to be valid Typescript, i.e cannot start with a number
 or contain dashes or whatnot. This function does not enforce capitalisation convention.
 *)
 let validate_ts_name (name : variable_name_t) : bool =
-  String.length name > 0
+  is_not_ts_keyword name
+  && String.length name > 0
   && (match name.[0] with
       | 'a' .. 'z' | 'A' .. 'Z' | '_' | '$' -> true
       | _ ->
@@ -29,8 +112,7 @@ let validate_ts_name (name : variable_name_t) : bool =
 
 (**
 [validate_env_variable (env_variable : env_name_t)]
-Validates an variable_name to be valid Typescript, i.e cannot start with a number
-or contain dashes or whatnot. This function does not enforce capitalisation convention.
+Validates that an environment variable exists.
 *)
 let validate_env_variable (name : env_name_t) : bool =
   try
@@ -67,9 +149,6 @@ let validate_parse (line : timburr_function) : bool =
   | _ -> false (* should never be reached *)
 ;;
 
-(** [validate_dump (line : timburr_function)] Validates a dump function call (always true) *)
-let validate_dump (_line : timburr_function) : bool = true
-
 (** [validate_env (line : timburr_function)] Validates and performs an env function call (reads .env, process.env, etc.) *)
 let validate_env (line : timburr_function) : bool =
   match line with
@@ -85,8 +164,8 @@ TODO: Pass in AWS IAM stuff and check if bucket exists during pre-runtime
 *)
 let validate_flush_bucket (_line : timburr_function) : bool = true
 
-(** [validate_pass (_func : timburr_function)] validates a blank line, comment, or a pass line into a pass token *)
-let validate_pass (_func : timburr_function) : bool = true
+(** [validate_pass (_ : timburr_function)] validates a blank line, comment, or a pass line into a pass token *)
+let validate_pass (_ : timburr_function) : bool = true
 
 (**
 [validate_single_line (number : int) (line : timburr_function)]
@@ -108,7 +187,6 @@ let validate_single_line (number : int) (line : timburr_function) : bool =
   | Pass -> validate_pass line
   | Const _ -> validate_const line
   | ParseTyped _ | ParseUntyped _ -> validate_parse line
-  | Dump _ -> validate_dump line
   | Env _ -> validate_env line
   | FlushBucket _ -> validate_flush_bucket line
 ;;

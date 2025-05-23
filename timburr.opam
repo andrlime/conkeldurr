@@ -14,6 +14,7 @@ depends: [
   "ocaml"
   "ocamlformat"
   "ounit2"
+  "csv"
   "odoc" {with-doc}
 ]
 build: [

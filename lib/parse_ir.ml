@@ -36,13 +36,6 @@ let parse_parse (line : scanned_line_list) : timburr_function =
   | _ -> raise (Exceptions.invalid_parse_command_factory line)
 ;;
 
-(** [parse_dump (line : scanned_line_list)] Takes a file_line that starts with dump and builds the command struct *)
-let parse_dump (line : scanned_line_list) : timburr_function =
-  match line with
-  | [ "dump"; file_name ] -> Dump file_name
-  | _ -> raise (Exceptions.invalid_dump_command_factory line)
-;;
-
 (** [parse_env (line : scanned_line_list)] Takes a file_line that starts with env and builds the command struct *)
 let parse_env (line : scanned_line_list) : timburr_function =
   match line with
@@ -72,7 +65,6 @@ let parse_line_to_ir ((line_number, line_content) : file_line_t) : timburr_funct
   | [] | "pass" :: _ | "#" :: _ -> parse_pass tokens
   | "const" :: _ -> parse_const tokens
   | "parse" :: _ -> parse_parse tokens
-  | "dump" :: _ -> parse_dump tokens
   | "env" :: _ -> parse_env tokens
   | "flush" :: _ -> parse_flush_bucket tokens
   | "flush_bucket" :: _ -> parse_flush_bucket tokens

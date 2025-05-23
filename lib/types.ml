@@ -7,6 +7,8 @@ type interface_name_t = string
 type variable_name_t = string
 type s3_bucket_name_t = string
 type scanned_line_list = string list
+type spreadsheet_column_name_t = string
+type spreadsheet_column_type_t = string
 
 type const_value_type_t =
   | Number of string
@@ -17,13 +19,13 @@ type timburr_function =
   | Const of const_value_type_t * variable_name_t
   | ParseTyped of file_name_t * interface_name_t * variable_name_t
   | ParseUntyped of file_name_t * variable_name_t
-  | Dump of file_name_t
   | Env of env_name_t * env_name_t
   | FlushBucket of s3_bucket_name_t
 
 type spreadsheet_column_t =
-  | NumberColumn of int list
+  | GenericColumn of string list
+  | NumberColumn of string list
   | StringColumn of string list
   | PathColumn of file_name_t list
 
-type parsed_spreadsheet = spreadsheet_column_t list
+type parsed_spreadsheet_t = (spreadsheet_column_name_t * spreadsheet_column_t) list
