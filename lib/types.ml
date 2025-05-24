@@ -29,3 +29,14 @@ type spreadsheet_column_t =
   | PathColumn of file_name_t list
 
 type parsed_spreadsheet_t = (spreadsheet_column_name_t * spreadsheet_column_t) list
+
+(* State types *)
+type variable_store = (variable_name_t, const_value_type_t) Hashtbl.t
+
+type spreadsheet_store =
+  (variable_name_t * interface_name_t, parsed_spreadsheet_t) Hashtbl.t
+
+type env_store = (env_name_t, string) Hashtbl.t
+type global_state_t = variable_store * spreadsheet_store * env_store
+
+(* todo: encode order that things should be exported in, i.e. a queue *)

@@ -34,3 +34,4 @@ setup.log
 _opam/
 
 STATUS
+.env

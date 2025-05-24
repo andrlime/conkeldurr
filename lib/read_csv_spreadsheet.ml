@@ -6,6 +6,30 @@ let print_row (l : string list) =
   print_newline res
 ;;
 
+let print_csv (s : string list list) : unit = s |> List.iter print_row
+
+let print_column (col : spreadsheet_column_name_t * spreadsheet_column_t) =
+  let col_name, col_data = col in
+  Printf.printf "column %s\t" col_name;
+  match col_data with
+  | GenericColumn list ->
+    Printf.printf "untyped\n";
+    List.iter (Printf.printf "%s\t") list;
+    Printf.printf "\n";
+  | NumberColumn list ->
+    Printf.printf "type number\n";
+    List.iter (Printf.printf "%s\t") list;
+    Printf.printf "\n";
+  | StringColumn list ->
+    Printf.printf "type string\n";
+    List.iter (Printf.printf "%s\t") list;
+    Printf.printf "\n";
+  | PathColumn list ->
+    Printf.printf "type path\n";
+    List.iter (Printf.printf "%s\t") list;
+    Printf.printf "\n";
+;;
+
 (** [transpose (list : 'a list list)] Transposes a 2D list *)
 let rec transpose = function
   | [] | [] :: _ -> []
@@ -41,6 +65,7 @@ Open a CSV spreadsheet by path and convert it to parsed_spreadsheet_t IR
 TODO: When columns don't have values in all rows, flag it as optional
 *)
 let read (path : string) : parsed_spreadsheet_t =
+  (* todo: trim tail of file, so extra new lines beyond one *)
   Csv.load path
   |> transpose
   |> validate_csv_size

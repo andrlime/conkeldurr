@@ -57,7 +57,7 @@ let parse_pass (_line : scanned_line_list) : timburr_function = Pass
 
 (** [parse_line_to_ir (line : file_line)] Takes a file line and converts it to a more interpretable interface of command and arguments *)
 let parse_line_to_ir ((line_number, line_content) : file_line_t) : timburr_function =
-  Printf.printf "Parsing line %d:\t%s\n" line_number line_content;
+  Printf.printf "Parsing line %d:\t%s\n" (line_number + 1) line_content;
   line_content
   |> Line_scanner.scan_line
   |> fun tokens ->

@@ -5,10 +5,13 @@ let timburr_process_file (input_file_name : string) (_output_file_name : string)
   print_endline "-----start------";
   let _ =
     input_file_name
+    |> Read_files.set_working_directory
     |> Read_files.read_file_into_lines
     |> Read_files.cleanup_lines
     |> Parse_ir.parse_all_lines_to_ir
     |> Validate_ir.validate_all_lines
+    |> Interpret_ir.run
+    |> Debug.print_state
   in
   print_endline "-----end------"
 ;;

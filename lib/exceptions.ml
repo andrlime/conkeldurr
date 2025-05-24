@@ -60,3 +60,13 @@ let invalid_csv_header_factory () =
   InvalidCsvHeader
     "Invalid CSV header! Make sure to only include one : delimiter per column"
 ;;
+
+exception ProgramFailedExecution of string
+
+let program_failed_exception_factory () =
+  ProgramFailedExecution "Program failed execution!"
+;;
+
+exception NotImplementedException of string
+
+let not_implemented_factory () = NotImplementedException "Feature not implemented"

@@ -2,6 +2,7 @@ open Types
 
 let is_not_space (character : char) : bool = character <> ' ' && character <> '\t'
 let quote (str : string) : string = "\"" ^ str ^ "\""
+let unquote (str : string) : string = String.sub str 1 (String.length str - 2)
 
 let scan_line (line_content : file_content_t) : scanned_line_list =
   let length = String.length line_content in

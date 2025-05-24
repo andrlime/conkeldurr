@@ -176,7 +176,6 @@ Pre-runtime check:
 Do all files that will be opened exist?
 Are all output variable names valid Typescript?
 Are variable and interface names unique?
-If AWS functions are used, are environment variables set?
 
 if line_invalid
   return false
