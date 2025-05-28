@@ -1,7 +1,7 @@
 open Cmdliner
-open Timburr
+open Conkeldurr
 
-let timburr_process_file (input_file_name : string) (_output_file_name : string) =
+let conkeldurr_process_file (input_file_name : string) (_output_file_name : string) =
   print_endline "-----start------";
   let _ =
     input_file_name
@@ -11,6 +11,10 @@ let timburr_process_file (input_file_name : string) (_output_file_name : string)
     |> Parse_ir.parse_all_lines_to_ir
     |> Validate_ir.validate_all_lines
     |> Interpret_ir.run
+    (* |> Type_check.lint (* todo: check every column in spreadsheets, add optionals *)
+    |> Emit_ts.generate
+    |> Tsc.check_compiles
+    |> Emit_ts.write *)
     |> Debug.print_state
   in
   print_endline "-----end------"
@@ -27,6 +31,6 @@ let output_file_arg =
 ;;
 
 let main_cmd =
-  let term = Term.(const timburr_process_file $ input_file_arg $ output_file_arg) in
-  Cmd.v (Cmd.info "timburr" ~version:"%%VERSION%%") term
+  let term = Term.(const conkeldurr_process_file $ input_file_arg $ output_file_arg) in
+  Cmd.v (Cmd.info "conkeldurr" ~version:"%%VERSION%%") term
 ;;

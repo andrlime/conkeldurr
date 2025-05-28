@@ -1,4 +1,4 @@
 (executable
- (public_name timburr)
+ (public_name conkeldurr)
  (name main)
- (libraries timburr cmdliner))
+ (libraries conkeldurr cmdliner))

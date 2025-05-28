@@ -7,14 +7,15 @@ maintainer: ["Andrew Li <andrewli@u.northwestern.edu>"]
 authors: ["Andrew Li <andrewli@u.northwestern.edu>"]
 license: "MIT"
 tags: ["ocaml" "dsl" "cli" "codegen" "csv" "aws" "compiler" "react"]
-homepage: "https://github.com/andrlime/timburr"
-bug-reports: "https://github.com/andrlime/timburr/issues"
+homepage: "https://github.com/andrlime/conkeldurr"
+bug-reports: "https://github.com/andrlime/conkeldurr/issues"
 depends: [
   "dune" {>= "3.18"}
   "ocaml"
   "ocamlformat"
   "ounit2"
   "csv"
+  "core_unix"
   "odoc" {with-doc}
 ]
 build: [
@@ -31,5 +32,5 @@ build: [
     "@doc" {with-doc}
   ]
 ]
-dev-repo: "git+https://github.com/andrlime/timburr.git"
+dev-repo: "git+https://github.com/andrlime/conkeldurr.git"
 x-maintenance-intent: ["(latest)"]

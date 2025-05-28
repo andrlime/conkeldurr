@@ -133,15 +133,15 @@ Checks that a file that a function will open exists on disk.
 *)
 let validate_file_name (_filename : file_name_t) : bool = true
 
-(** [validate_const (line : timburr_function)] Validate a const function call *)
-let validate_const (line : timburr_function) : bool =
+(** [validate_const (line : conkeldurr_function)] Validate a const function call *)
+let validate_const (line : conkeldurr_function) : bool =
   match line with
   | Const (_, var_name) -> validate_ts_name var_name
   | _ -> false (* should never be reached *)
 ;;
 
-(** [validate_parse (line : timburr_function)] Validates a parse function call *)
-let validate_parse (line : timburr_function) : bool =
+(** [validate_parse (line : conkeldurr_function)] Validates a parse function call *)
+let validate_parse (line : conkeldurr_function) : bool =
   match line with
   | ParseTyped (file_name, interface_name, var_name) ->
     validate_file_name file_name
@@ -152,26 +152,26 @@ let validate_parse (line : timburr_function) : bool =
   | _ -> false (* should never be reached *)
 ;;
 
-(** [validate_env (line : timburr_function)] Validates and performs an env function call (reads .env, process.env, etc.) *)
-let validate_env (line : timburr_function) : bool =
+(** [validate_env (line : conkeldurr_function)] Validates and performs an env function call (reads .env, process.env, etc.) *)
+let validate_env (line : conkeldurr_function) : bool =
   match line with
   | Env (src, _) -> validate_env_variable src
   | _ -> false (* should never be reached *)
 ;;
 
 (**
-[validate_flush_bucket (line : timburr_function)]
+[validate_flush_bucket (line : conkeldurr_function)]
 Validates a flush bucket function call
 
 TODO: Pass in AWS IAM stuff and check if bucket exists during pre-runtime
 *)
-let validate_flush_bucket (_line : timburr_function) : bool = true
+let validate_flush_bucket (_line : conkeldurr_function) : bool = true
 
-(** [validate_pass (_ : timburr_function)] validates a blank line, comment, or a pass line into a pass token *)
-let validate_pass (_ : timburr_function) : bool = true
+(** [validate_pass (_ : conkeldurr_function)] validates a blank line, comment, or a pass line into a pass token *)
+let validate_pass (_ : conkeldurr_function) : bool = true
 
 (**
-[validate_single_line (number : int) (line : timburr_function)]
+[validate_single_line (number : int) (line : conkeldurr_function)]
 Pre-runtime check:
 Do all files that will be opened exist?
 Are all output variable names valid Typescript?
@@ -183,7 +183,7 @@ else
   return true
 end
 *)
-let validate_single_line (number : int) (line : timburr_function) : bool =
+let validate_single_line (number : int) (line : conkeldurr_function) : bool =
   Printf.printf "Validating line %d\n" (number + 1);
   match line with
   | Pass -> validate_pass line
@@ -193,8 +193,8 @@ let validate_single_line (number : int) (line : timburr_function) : bool =
   | FlushBucket _ -> validate_flush_bucket line
 ;;
 
-(** [validate_all_lines (lines : timburr_function list)] Calls validate_single_line on every function *)
-let validate_all_lines (lines : timburr_function list) : timburr_function list =
+(** [validate_all_lines (lines : conkeldurr_function list)] Calls validate_single_line on every function *)
+let validate_all_lines (lines : conkeldurr_function list) : conkeldurr_function list =
   lines
   |> List.mapi validate_single_line
   |> List.exists (fun b -> not b)

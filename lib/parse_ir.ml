@@ -20,7 +20,7 @@ let parse_literal_constant_value (constant : string) : const_value_type_t =
 ;;
 
 (** [parse_const (line : scanned_line_list)] Takes a file_line that starts with const and builds the command struct *)
-let parse_const (line : scanned_line_list) : timburr_function =
+let parse_const (line : scanned_line_list) : conkeldurr_function =
   match line with
   | [ "const"; constant_value; variable_name ] ->
     Const (parse_literal_constant_value constant_value, variable_name)
@@ -28,7 +28,7 @@ let parse_const (line : scanned_line_list) : timburr_function =
 ;;
 
 (** [parse_parse (line : scanned_line_list)] Takes a file_line that starts with parse and builds the command struct *)
-let parse_parse (line : scanned_line_list) : timburr_function =
+let parse_parse (line : scanned_line_list) : conkeldurr_function =
   match line with
   | [ "parse"; file_name; variable_name ] -> ParseUntyped (file_name, variable_name)
   | [ "parse"; file_name; interface_name; variable_name ] ->
@@ -37,7 +37,7 @@ let parse_parse (line : scanned_line_list) : timburr_function =
 ;;
 
 (** [parse_env (line : scanned_line_list)] Takes a file_line that starts with env and builds the command struct *)
-let parse_env (line : scanned_line_list) : timburr_function =
+let parse_env (line : scanned_line_list) : conkeldurr_function =
   match line with
   | [ "env"; src; dest ] -> Env (src, dest)
   | [ "env"; dest ] -> Env (dest, dest)
@@ -45,7 +45,7 @@ let parse_env (line : scanned_line_list) : timburr_function =
 ;;
 
 (** [parse_flush_bucket (line : scanned_line_list)] Takes a file_line that starts with flush_bucket and builds the command struct *)
-let parse_flush_bucket (line : scanned_line_list) : timburr_function =
+let parse_flush_bucket (line : scanned_line_list) : conkeldurr_function =
   match line with
   | [ "flush"; s3_bucket_name ] -> FlushBucket s3_bucket_name
   | [ "flush_bucket"; s3_bucket_name ] -> FlushBucket s3_bucket_name
@@ -53,10 +53,10 @@ let parse_flush_bucket (line : scanned_line_list) : timburr_function =
 ;;
 
 (** [parse_pass (_line : scanned_line_list)] Parses a blank line, comment, or a pass line into a pass token *)
-let parse_pass (_line : scanned_line_list) : timburr_function = Pass
+let parse_pass (_line : scanned_line_list) : conkeldurr_function = Pass
 
 (** [parse_line_to_ir (line : file_line)] Takes a file line and converts it to a more interpretable interface of command and arguments *)
-let parse_line_to_ir ((line_number, line_content) : file_line_t) : timburr_function =
+let parse_line_to_ir ((line_number, line_content) : file_line_t) : conkeldurr_function =
   Printf.printf "Parsing line %d:\t%s\n" (line_number + 1) line_content;
   line_content
   |> Line_scanner.scan_line
@@ -73,6 +73,6 @@ let parse_line_to_ir ((line_number, line_content) : file_line_t) : timburr_funct
 ;;
 
 (** [parse_all_lines_to_ir (lines : file_line list)] Converts all file_line to the program intermediate representation *)
-let parse_all_lines_to_ir (lines : file_line_t list) : timburr_function list =
+let parse_all_lines_to_ir (lines : file_line_t list) : conkeldurr_function list =
   List.map parse_line_to_ir lines
 ;;

@@ -15,7 +15,7 @@ tasks:
       - b
   run:
     cmds:
-      - dune exec timburr
+      - dune exec conkeldurr
     silent: true
     aliases:
       - run

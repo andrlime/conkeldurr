@@ -1,4 +1,4 @@
-name: "[timburr/ci] Lint source code and run unit tests on push and PR"
+name: "[conkeldurr/ci] Lint source code and run unit tests on push and PR"
 
 on:
   push:

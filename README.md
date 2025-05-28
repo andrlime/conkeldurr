@@ -1,6 +1,6 @@
-# Timburr: Lightweight CSV-to-React Build-Time Content Organisation System
+# Conkeldurr: Lightweight CSV-to-React Build-Time Content Organisation System
 
-![Timburr](logo.png)
+![Conkeldurr](logo.png)
 
 ## Summary
 This is a domain specific language powered by OCaml that bridges CSV (and soon, maybe other) data into Typescript files with specific variable names and ordering for build-time importing by a React app, i.e. a build-time content organisation system. Additionally, to inject dynamic image content, this app supports uploading images to an AWS S3 bucket to not require importing images in frameworks like Vite.

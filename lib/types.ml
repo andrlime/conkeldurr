@@ -14,7 +14,7 @@ type const_value_type_t =
   | Number of string
   | String of string
 
-type timburr_function =
+type conkeldurr_function =
   | Pass
   | Const of const_value_type_t * variable_name_t
   | ParseTyped of file_name_t * interface_name_t * variable_name_t
@@ -22,6 +22,7 @@ type timburr_function =
   | Env of env_name_t * env_name_t
   | FlushBucket of s3_bucket_name_t
 
+(* TODO: add optional flag *)
 type spreadsheet_column_t =
   | GenericColumn of string list
   | NumberColumn of string list
