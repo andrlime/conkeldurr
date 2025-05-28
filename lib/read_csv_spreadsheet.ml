@@ -15,19 +15,19 @@ let print_column (col : spreadsheet_column_name_t * spreadsheet_column_t) =
   | GenericColumn list ->
     Printf.printf "untyped\n";
     List.iter (Printf.printf "%s\t") list;
-    Printf.printf "\n";
+    Printf.printf "\n"
   | NumberColumn list ->
     Printf.printf "type number\n";
     List.iter (Printf.printf "%s\t") list;
-    Printf.printf "\n";
+    Printf.printf "\n"
   | StringColumn list ->
     Printf.printf "type string\n";
     List.iter (Printf.printf "%s\t") list;
-    Printf.printf "\n";
+    Printf.printf "\n"
   | PathColumn list ->
     Printf.printf "type path\n";
     List.iter (Printf.printf "%s\t") list;
-    Printf.printf "\n";
+    Printf.printf "\n"
 ;;
 
 (** [transpose (list : 'a list list)] Transposes a 2D list *)
