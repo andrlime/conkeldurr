@@ -9,6 +9,7 @@ type s3_bucket_name_t = string
 type scanned_line_list = string list
 type spreadsheet_column_name_t = string
 type spreadsheet_column_type_t = string
+type typescript_code_t = string
 
 type const_value_type_t =
   | Number of string
@@ -31,7 +32,7 @@ type spreadsheet_column_t =
 
 type parsed_spreadsheet_t = (spreadsheet_column_name_t * spreadsheet_column_t) list
 
-(* State types *)
+(* State types, order doesn't really matter (can be changed later) *)
 type variable_store = (variable_name_t, const_value_type_t) Hashtbl.t
 
 type spreadsheet_store =
