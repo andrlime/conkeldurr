@@ -1,88 +1,32 @@
 open Types
 
 (**
+[ts_keywords_tbl]
+Static TypeScript keyword hashtbl
+*)
+let ts_keywords_tbl : (string, unit) Hashtbl.t =
+  let tbl = Hashtbl.create 97 in
+  List.iter
+    (fun kw -> Hashtbl.add tbl kw ())
+    [
+      "abstract"; "any"; "as"; "asserts"; "async"; "await"; "boolean"; "break"; "case"; "catch";
+      "class"; "const"; "continue"; "debugger"; "declare"; "default"; "delete"; "do"; "else"; "enum";
+      "export"; "extends"; "false"; "finally"; "for"; "from"; "function"; "get"; "if"; "implements";
+      "import"; "in"; "infer"; "instanceof"; "interface"; "is"; "keyof"; "let"; "module"; "namespace";
+      "never"; "new"; "null"; "number"; "object"; "of"; "package"; "private"; "protected"; "public";
+      "readonly"; "require"; "return"; "set"; "static"; "string"; "super"; "switch"; "symbol"; "this";
+      "throw"; "true"; "try"; "type"; "typeof"; "undefined"; "unique"; "unknown"; "var"; "void";
+      "while"; "with"; "yield"
+    ];
+  tbl
+;;
+
+(**
 [is_not_ts_keyword (name : variable_name_t)]
 Validates that a variable/interface name is not accidentally a TypeScript keyword
-
-NOTE:
-Switch this to hash set
 *)
 let is_not_ts_keyword (name : variable_name_t) : bool =
-  match name with
-  | "abstract"
-  | "any"
-  | "as"
-  | "asserts"
-  | "async"
-  | "await"
-  | "boolean"
-  | "break"
-  | "case"
-  | "catch"
-  | "class"
-  | "const"
-  | "continue"
-  | "debugger"
-  | "declare"
-  | "default"
-  | "delete"
-  | "do"
-  | "else"
-  | "enum"
-  | "export"
-  | "extends"
-  | "false"
-  | "finally"
-  | "for"
-  | "from"
-  | "function"
-  | "get"
-  | "if"
-  | "implements"
-  | "import"
-  | "in"
-  | "infer"
-  | "instanceof"
-  | "interface"
-  | "is"
-  | "keyof"
-  | "let"
-  | "module"
-  | "namespace"
-  | "never"
-  | "new"
-  | "null"
-  | "number"
-  | "object"
-  | "of"
-  | "package"
-  | "private"
-  | "protected"
-  | "public"
-  | "readonly"
-  | "require"
-  | "return"
-  | "set"
-  | "static"
-  | "string"
-  | "super"
-  | "switch"
-  | "symbol"
-  | "this"
-  | "throw"
-  | "true"
-  | "try"
-  | "type"
-  | "typeof"
-  | "undefined"
-  | "unique"
-  | "unknown"
-  | "var"
-  | "void"
-  | "while"
-  | "with"
-  | "yield" -> false
-  | _ -> true
+  not (Hashtbl.mem ts_keywords_tbl name)
 ;;
 
 (**
