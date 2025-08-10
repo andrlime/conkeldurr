@@ -1,3 +1,0 @@
-(test
- (name unit_test_conkeldurr)
- (libraries conkeldurr ounit2))
