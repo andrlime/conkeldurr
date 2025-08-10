@@ -60,6 +60,7 @@ module Parser = struct
   ;;
 end
 
+(* TODO: Extend this to a functor for other input formats *)
 module CsvSpreadsheet = struct
   type packed_column = Pack : 'a Column.t -> packed_column
   type t = packed_column list
