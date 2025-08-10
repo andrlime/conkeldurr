@@ -20,7 +20,7 @@ module ReadSpreadsheet = struct
   type t =
     { var : Variable.T.t
     ; interface : Variable.T.t
-    ; path : string
+    ; path : Spreadsheet.Path.t
     }
   [@@deriving sexp]
 end

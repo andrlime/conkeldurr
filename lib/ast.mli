@@ -22,7 +22,7 @@ module ReadSpreadsheet : sig
   type t =
     { var : string
     ; interface : string
-    ; path : string
+    ; path : Spreadsheet.Path.t
     }
 
   val t_of_sexp : Sexplib0.Sexp.t -> t
