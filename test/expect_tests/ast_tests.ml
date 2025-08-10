@@ -3,59 +3,59 @@ open Conkeldurr
 let%expect_test "parses_read_constant_correctly" =
   let sample_sexp =
     {|
-((ReadConstant ((var "thing") (value (String "ABCDEF"))))
- (ReadConstant ((var "thing2") (value (Integer 123)))))
+  ((ReadConstant ((var "thing") (value (String "ABCDEF"))))
+   (ReadConstant ((var "thing2") (value (Integer 123)))))
   |}
   in
   sample_sexp |> Program.T.of_string |> Program.T.to_readable_string |> print_endline;
   [%expect
     {|
-ReadConstant to variable thing: string
-ReadConstant to variable thing2: number
+  ReadConstant to variable thing: string
+  ReadConstant to variable thing2: number
   |}]
 ;;
 
 let%expect_test "parses_read_mutable_correctly" =
   let sample_sexp =
     {|
-((ReadVariable ((var "thing") (value (String "ABCDEF"))))
- (ReadVariable ((var "thing2") (value (Integer 123))))
- (ReadVariable ((var "thing3") (value (Float 123)))))
+  ((ReadVariable ((var "thing") (value (String "ABCDEF"))))
+   (ReadVariable ((var "thing2") (value (Integer 123))))
+   (ReadVariable ((var "thing3") (value (Float 123)))))
   |}
   in
   sample_sexp |> Program.T.of_string |> Program.T.to_readable_string |> print_endline;
   [%expect
     {|
-ReadVariable to variable thing: string
-ReadVariable to variable thing2: number
-ReadVariable to variable thing3: number
+  ReadVariable to variable thing: string
+  ReadVariable to variable thing2: number
+  ReadVariable to variable thing3: number
   |}]
 ;;
 
 let%expect_test "parses_read_spreadsheet_correctly" =
   let sample_sexp =
     {|
-((ReadSpreadsheet ((var "spreadsheet_123") (interface "INTERFACE_123") (path (Csv "./hello.csv")))))
+  ((ReadSpreadsheet ((var "spreadsheet_123") (interface "INTERFACE_123") (path (Csv "./hello.csv")))))
   |}
   in
   sample_sexp |> Program.T.of_string |> Program.T.to_readable_string |> print_endline;
   [%expect
     {|
-ReadSpreadsheet from path CSV file ./hello.csv to variable spreadsheet_123, interface INTERFACE_123
+  ReadSpreadsheet from path CSV file ./hello.csv to variable spreadsheet_123, interface INTERFACE_123
   |}]
 ;;
 
 let%expect_test "parses_export_correctly" =
   let sample_sexp =
     {|
-((Export (File "abc.csv"))
- (Export Stdout))
+  ((Export (File "abc.csv"))
+   (Export Stdout))
   |}
   in
   sample_sexp |> Program.T.of_string |> Program.T.to_readable_string |> print_endline;
   [%expect
     {|
-Export to file abc.csv
-Export to stdout
+  Export to file abc.csv
+  Export to stdout
   |}]
 ;;

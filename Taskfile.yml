@@ -27,3 +27,9 @@ tasks:
     aliases:
       - fmt
       - f
+  test:
+    cmds:
+      - dune test
+    silent: true
+    aliases:
+      - t
