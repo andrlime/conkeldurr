@@ -10,7 +10,7 @@ module T : sig
     | Mutable of t
 
   val get_type : t -> string
-  val value_to_string : t -> string * string
+  val get_value : t -> string
   val const_to_string : Variable.T.t -> t -> string
   val mutable_to_string : Variable.T.t -> t -> string
   val to_string : Variable.T.t * v -> string

@@ -20,23 +20,23 @@ module T = struct
     | Boolean _ -> "boolean"
   ;;
 
-  let value_to_string t =
+  let get_value t =
     match t with
-    | String s -> "string", Io.quote s
-    | Integer i -> "number", string_of_int i
-    | Float f -> "number", string_of_float f
-    | Boolean b -> "boolean", if b then "true" else "false"
+    | String s -> Io.quote s
+    | Integer i -> string_of_int i
+    | Float f -> string_of_float f
+    | Boolean b -> if b then "true" else "false"
   ;;
 
   let const_to_string var t =
     let varname = var in
-    let vartype, varvalue = value_to_string t in
+    let vartype, varvalue = get_type t, get_value t in
     Printf.sprintf "export const %s: %s = %s;" varname vartype varvalue
   ;;
 
   let mutable_to_string var t =
     let varname = var in
-    let vartype, varvalue = value_to_string t in
+    let vartype, varvalue = get_type t, get_value t in
     Printf.sprintf "export let %s: %s = %s;" varname vartype varvalue
   ;;
 

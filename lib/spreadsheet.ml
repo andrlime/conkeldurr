@@ -4,67 +4,12 @@ module Path = struct
   type t = Csv of string [@@deriving sexp]
 end
 
-module Header = struct
-  type number_type =
-    | I of int
-    | F of float
-
-  type t =
-    | String of string
-    | Boolean of string
-    | Float of string
-    | Integer of string
-    | Number of string
-  [@@deriving sexp]
-
-  let of_string hdr = hdr |> Sexplib.Sexp.of_string |> t_of_sexp
-
-  let to_string hdr =
-    match hdr with
-    | String s -> "String " ^ s
-    | Boolean s -> "Boolean " ^ s
-    | Float s -> "Float " ^ s
-    | Integer s -> "Integer " ^ s
-    | Number s -> "Number " ^ s
-  ;;
-
-  let get_string hdr =
-    match hdr with
-    | String s -> s
-    | Boolean s -> s
-    | Float s -> s
-    | Integer s -> s
-    | Number s -> s
-  ;;
-end
-
-module Column = struct
-  type 'a t =
-    { name : string
-    ; header : Header.t
-    ; data : 'a list
-    }
-end
-
-module Parser = struct
-  let parse_column_header hdr = hdr |> Header.of_string
-
-  let check_duplicates headers =
-    let seen = Hashtbl.create 97 in
-    headers
-    |> List.iter (fun hdr ->
-      let header_name = (Header.get_string hdr) in
-      if Hashtbl.mem seen header_name
-      then raise (Failure "Cannot have duplicate columns")
-      else Hashtbl.add seen header_name ());
-    headers
-  ;;
-end
-
 (* TODO: Extend this to a functor for other input formats *)
 module CsvSpreadsheet = struct
-  type packed_column = Pack : 'a Column.t -> packed_column
-  type t = packed_column list
+  type t =
+    { headers : Header.T.t list
+    ; records : Record.T.t list
+    }
 
   let header_row csv = List.hd csv
   let body_rows csv = List.tl csv
@@ -72,12 +17,11 @@ module CsvSpreadsheet = struct
   let from_path path = Csv.load path
 
   let from_csv csv =
-    let header =
-      csv |> header_row |> List.map Parser.parse_column_header |> Parser.check_duplicates
+    let headers =
+      csv |> header_row |> List.map Header.Parser.parse |> Header.Parser.check_duplicates
     in
-    (* let body = csv |> body_rows in *)
-    header |> List.iter (fun hdr -> print_endline (Header.to_string hdr));
-    []
+    let records = csv |> body_rows |> List.map (Record.T.from_list headers) in
+    { headers; records }
   ;;
 
   let get_json _ = ""
