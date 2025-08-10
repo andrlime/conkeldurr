@@ -40,16 +40,18 @@ let%expect_test "interpreter_fails_on_duplicate_variables" =
 let%expect_test "interpreter_fails_on_keyword_variables" =
   Variable.Keywords.keywords_list
   |> List.iter (fun kw ->
-    let program = Printf.sprintf {|
+    let program =
+      Printf.sprintf
+        {|
     ((ReadConstant ((var %s) (value (String "ABCDEF"))))
     (Export Stdout))
-    |} kw
+    |}
+        kw
     in
     try program |> Program.T.of_string |> Interpreter.T.interpret with
-    | Failure msg ->
-      print_endline msg;
-  );
-  [%expect {|
+    | Failure msg -> print_endline msg);
+  [%expect
+    {|
   invalid TypeScript variable name abstract
   invalid TypeScript variable name any
   invalid TypeScript variable name as
@@ -123,5 +125,5 @@ let%expect_test "interpreter_fails_on_keyword_variables" =
   invalid TypeScript variable name while
   invalid TypeScript variable name with
   invalid TypeScript variable name yield
-  |}] 
+  |}]
 ;;
