@@ -28,7 +28,10 @@ module ReadSpreadsheet = struct
 end
 
 module Export = struct
-  type t = { file : string } [@@deriving sexp]
+  type t = 
+  | File of string
+  | Stdout
+  [@@deriving sexp]
 end
 
 module Node = struct

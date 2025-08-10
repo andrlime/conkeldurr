@@ -1,11 +1,6 @@
 module T = struct
-  type destination =
-  | FileOut
-  | Stdout
-  
   type state =
-    { write_destination : destination ;
-      variable_store : Literal.T.v Store.T.t
+    { variable_store : Literal.T.v Store.T.t
       (* interface_store : Interface.T.t Store.T.t *)
     }
 
@@ -31,9 +26,9 @@ module T = struct
 
   let export state (node : Ast.Export.t) =
     let contents = Store.T.to_string state.variable_store Literal.T.to_string in
-    match state.write_destination with
-    | FileOut -> Io.write_file node.file contents
-    | Stdout -> print_endline contents
+    match node with
+    | Ast.Export.File file -> Io.write_file file contents
+    | Ast.Export.Stdout -> print_endline contents
   ;;
 
   let interpret_node state node =
@@ -45,7 +40,6 @@ module T = struct
   ;;
 
   let create_blank_state () = { 
-    write_destination = Stdout ;
     variable_store = Store.T.create () 
   }
 
