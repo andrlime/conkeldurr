@@ -1,9 +1,0 @@
-env HELLO_WORLD
-
-const "some constant string" DESTINATION_VARIABLE_1
-parse "./example1.csv" InterfaceVariable2 DESTINATION_VARIABLE_2
-parse "./example2.csv" InterfaceVariable3 DESTINATION_VARIABLE_3
-
-const "./example_output.ts" VALUE # another comment
-const 123.21321321A ANOTHER_VALUE
-# test comment

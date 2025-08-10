@@ -6,6 +6,11 @@ let conkeldurr_process_file (input_file_name : string) =
   let _ =
     input_file_name
     |> Io.set_working_directory
+    |> Io.read_file
+    |> Program.T.of_string
+    |> Interpreter.T.interpret
+    (* |> Program.T.to_string *)
+    (* |> print_endline *)
   in
   print_endline "-----end------"
 ;;

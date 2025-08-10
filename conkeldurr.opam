@@ -16,6 +16,8 @@ depends: [
   "ounit2"
   "csv"
   "core_unix"
+  "sexplib"
+  "ppx_sexp_conv"
   "odoc" {with-doc}
 ]
 build: [
