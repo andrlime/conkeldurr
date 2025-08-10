@@ -1,3 +1,8 @@
+module Keywords : sig
+  val keywords_list : string list
+  val is_keyword : string -> bool
+end
+
 module T : sig
   type t = string [@@deriving sexp]
 

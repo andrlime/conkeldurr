@@ -6,6 +6,8 @@ module T = struct
 
   let interpret_read_constant state (node : Ast.ReadConstant.t) =
     let variable, value = node.var, node.value in
+    if Variable.Keywords.is_keyword variable then raise (Failure ("invalid TypeScript variable name " ^ variable));
+
     let store = state.variable_store in
     let result = Store.T.set_key store variable (Constant value) in
     match result with
@@ -15,6 +17,8 @@ module T = struct
 
   let interpret_read_variable state (node : Ast.ReadVariable.t) =
     let variable, value = node.var, node.value in
+    if Variable.Keywords.is_keyword variable then raise (Failure ("invalid TypeScript variable name " ^ variable));
+    
     let store = state.variable_store in
     let result = Store.T.set_key store variable (Mutable value) in
     match result with
