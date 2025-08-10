@@ -6,7 +6,13 @@ let conkeldurr_process_file file =
   |> Io.set_working_directory
   |> Io.read_file
   |> Program.T.of_string
-  |> Interpreter.T.interpret
+  |> Interpreter.T.interpret;
+  let _ =
+    Spreadsheet.CsvSpreadsheet.from_string
+      "(String name),(Integer field),(Number otherfield)\nd,e,f"
+    |> Spreadsheet.CsvSpreadsheet.from_csv
+  in
+  ()
 ;;
 
 let input_file_arg =
