@@ -6,8 +6,6 @@ module ReadConstant = struct
     ; value : Literal.T.t
     }
   [@@deriving sexp]
-
-  let create_t varname strvalue = { var = varname; value = Literal.T.String strvalue }
 end
 
 module ReadVariable = struct
@@ -28,9 +26,9 @@ module ReadSpreadsheet = struct
 end
 
 module Export = struct
-  type t = 
-  | File of string
-  | Stdout
+  type t =
+    | File of string
+    | Stdout
   [@@deriving sexp]
 end
 

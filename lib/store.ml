@@ -18,10 +18,14 @@ module T = struct
       Success
   ;;
 
-  let get_key store key = Hashtbl.find store.data key Success
-  let to_list store = Hashtbl.fold (fun k v acc -> (k, v) :: acc) store []
+  let get_key store key =
+    ignore (Hashtbl.find store.data key);
+    Success
+  ;;
 
-  let to_string store (generator : string * 'a -> string) =
-    store.data |> to_list |> List.map generator |> String.concat "\n"
+  let to_list store = Hashtbl.fold (fun k v acc -> (k, v) :: acc) store.data []
+
+  let to_string store generator =
+    store |> to_list |> List.map generator |> String.concat "\n"
   ;;
 end

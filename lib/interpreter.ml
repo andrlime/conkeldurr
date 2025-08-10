@@ -39,9 +39,7 @@ module T = struct
     | Ast.Node.Export n -> export state n
   ;;
 
-  let create_blank_state () = { 
-    variable_store = Store.T.create () 
-  }
+  let create_blank_state () = { variable_store = Store.T.create () }
 
   let interpret (program : Program.T.t) =
     let state = create_blank_state () in

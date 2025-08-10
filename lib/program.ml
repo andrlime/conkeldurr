@@ -1,4 +1,3 @@
-open Ast
 open Sexplib.Std
 
 module ProgramCounter = struct
@@ -8,7 +7,7 @@ module ProgramCounter = struct
 end
 
 module T = struct
-  type ast = Node.t list [@@deriving sexp]
+  type ast = Ast.Node.t list [@@deriving sexp]
 
   type t =
     { ast : ast
