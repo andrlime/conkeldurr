@@ -19,8 +19,8 @@ module Header : sig
 
   val t_of_sexp : Sexplib0.Sexp.t -> t
   val sexp_of_t : t -> Sexplib0.Sexp.t
-  val header_of_string : string -> t
-  val header_to_string : t -> string
+  val of_string : string -> t
+  val to_string : t -> string
   val get_string : t -> string
 end
 

@@ -17,9 +17,9 @@ module Header = struct
     | Number of string
   [@@deriving sexp]
 
-  let header_of_string hdr = hdr |> Sexplib.Sexp.of_string |> t_of_sexp
+  let of_string hdr = hdr |> Sexplib.Sexp.of_string |> t_of_sexp
 
-  let header_to_string hdr =
+  let to_string hdr =
     match hdr with
     | String s -> "String " ^ s
     | Boolean s -> "Boolean " ^ s
@@ -47,15 +47,16 @@ module Column = struct
 end
 
 module Parser = struct
-  let parse_column_header hdr = hdr |> Header.header_of_string
+  let parse_column_header hdr = hdr |> Header.of_string
 
   let check_duplicates headers =
     let seen = Hashtbl.create 97 in
     headers
     |> List.iter (fun hdr ->
-      if Hashtbl.mem seen (Header.get_string hdr)
+      let header_name = (Header.get_string hdr) in
+      if Hashtbl.mem seen header_name
       then raise (Failure "Cannot have duplicate columns")
-      else Hashtbl.add seen (Header.get_string hdr) ());
+      else Hashtbl.add seen header_name ());
     headers
   ;;
 end
@@ -75,7 +76,7 @@ module CsvSpreadsheet = struct
       csv |> header_row |> List.map Parser.parse_column_header |> Parser.check_duplicates
     in
     (* let body = csv |> body_rows in *)
-    header |> List.iter (fun hdr -> print_endline (Header.header_to_string hdr));
+    header |> List.iter (fun hdr -> print_endline (Header.to_string hdr));
     []
   ;;
 
