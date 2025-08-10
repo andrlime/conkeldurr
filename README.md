@@ -45,4 +45,4 @@ id:number,name:string
 ```
 which indicates that `id` should be number-ified, `name` is a string.. The only raw types that are supported here are `number` and `string`.
 
-The format of all columns must be some alphanumeric/underscore variable name that would be supported by Typescript, followed by a colon and the type. The implication here is that input files are a subset of all CSV files, i.e. not all CSV files are created equal.
+The format of all column names are s-expressions like `(String columnname)`. This is to ease parsing in OCaml.
