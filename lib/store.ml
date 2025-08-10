@@ -11,8 +11,6 @@ module T = struct
   ;;
 
   let set_key store key value =
-    print_endline
-      ("setting key " ^ key ^ " " ^ string_of_bool (Hashtbl.mem store.data key));
     match Hashtbl.mem store.data key with
     | true -> Failure ("variable " ^ key ^ " already set")
     | false ->
@@ -28,6 +26,10 @@ module T = struct
   let to_list store = Hashtbl.fold (fun k v acc -> (k, v) :: acc) store.data []
 
   let to_string store generator =
-    store |> to_list |> List.map generator |> String.concat "\n"
+    store
+    |> to_list
+    |> List.map generator
+    |> List.sort String.compare
+    |> String.concat "\n"
   ;;
 end
