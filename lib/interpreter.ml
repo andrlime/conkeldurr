@@ -1,6 +1,11 @@
 module T = struct
+  type destination =
+  | FileOut
+  | Stdout
+  
   type state =
-    { variable_store : Literal.T.v Store.T.t
+    { write_destination : destination ;
+      variable_store : Literal.T.v Store.T.t
       (* interface_store : Interface.T.t Store.T.t *)
     }
 
@@ -25,7 +30,10 @@ module T = struct
   let interpret_read_spreadsheet _ _ = raise (Failure "Not implemented")
 
   let export state (node : Ast.Export.t) =
-    Store.T.to_string state.variable_store Literal.T.to_string |> Io.write_file node.file
+    let contents = Store.T.to_string state.variable_store Literal.T.to_string in
+    match state.write_destination with
+    | FileOut -> Io.write_file node.file contents
+    | Stdout -> print_endline contents
   ;;
 
   let interpret_node state node =
@@ -36,7 +44,10 @@ module T = struct
     | Ast.Node.Export n -> export state n
   ;;
 
-  let create_blank_state () = { variable_store = Store.T.create () }
+  let create_blank_state () = { 
+    write_destination = Stdout ;
+    variable_store = Store.T.create () 
+  }
 
   let interpret (program : Program.T.t) =
     let state = create_blank_state () in
