@@ -17,12 +17,11 @@ in some `.ts` file, but that can be difficult to maintain. A spreadsheet is a lo
 
 While that is quite trivial, organisation of some of these values may require specific control over formatting. Therefore, this is a compiler that bridges an s-expression based language to TypeScript:
 ```ocaml
-(Program
-	(ReadConstant (String “ABCDEF”) (VariableName “thing”))
-	(ReadConstant (Number 123) (VariableName “thing2”))
-	(ReadVariable (Number 123) (VariableName “thing3”))
-	(ReadSpreadsheet (InterfaceName “INTERFACE_123”) (FileName “spreadsheet_123”))
-	(Export (FileName “file-name.ts”)))
+((ReadConstant ((value (String "ABCDEF")) (var "thing")))
+ (ReadConstant ((value (Integer 123)) (var "thing2")))
+ (ReadVariable ((value (Float 3.14)) (var "thing3")))
+ (ReadSpreadsheet ((var "spreadsheet_123") (interface "INTERFACE_123") (path "./hello")))
+ (Export Stdout))
 ```
 and converts it into the file `some_file.ts` that looks like
 ```ts
