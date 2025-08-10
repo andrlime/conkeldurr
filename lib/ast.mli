@@ -6,6 +6,7 @@ module ReadConstant : sig
 
   val t_of_sexp : Sexplib0.Sexp.t -> t
   val sexp_of_t : t -> Sexplib0.Sexp.t
+  val to_string : t -> string
 end
 
 module ReadVariable : sig
@@ -16,6 +17,7 @@ module ReadVariable : sig
 
   val t_of_sexp : Sexplib0.Sexp.t -> t
   val sexp_of_t : t -> Sexplib0.Sexp.t
+  val to_string : t -> string
 end
 
 module ReadSpreadsheet : sig
@@ -27,6 +29,7 @@ module ReadSpreadsheet : sig
 
   val t_of_sexp : Sexplib0.Sexp.t -> t
   val sexp_of_t : t -> Sexplib0.Sexp.t
+  val to_string : t -> string
 end
 
 module Export : sig
@@ -36,6 +39,7 @@ module Export : sig
 
   val t_of_sexp : Sexplib0.Sexp.t -> t
   val sexp_of_t : t -> Sexplib0.Sexp.t
+  val to_string : t -> string
 end
 
 module Node : sig
@@ -47,4 +51,5 @@ module Node : sig
 
   val t_of_sexp : Sexplib0.Sexp.t -> t
   val sexp_of_t : t -> Sexplib0.Sexp.t
+  val to_string : t -> string
 end

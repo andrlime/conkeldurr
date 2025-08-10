@@ -1,0 +1,12 @@
+(library
+ (name test_conkeldurr)
+ (inline_tests
+  (deps
+   (sandbox always)))
+ (libraries
+  conkeldurr
+  ppx_expect.config
+  ppx_expect.config_types
+  ppx_inline_test.config)
+ (preprocess
+  (pps ppx_expect)))

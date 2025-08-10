@@ -12,6 +12,14 @@ module T = struct
     | Constant of t
     | Mutable of t
 
+  let get_type t =
+    match t with
+    | String _ -> "string"
+    | Integer _ -> "number"
+    | Float _ -> "number"
+    | Boolean _ -> "boolean"
+  ;;
+
   let value_to_string t =
     match t with
     | String s -> "string", Io.quote s

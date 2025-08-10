@@ -20,4 +20,8 @@ module T = struct
   ;;
 
   let to_string program = program.ast |> sexp_of_ast |> Sexplib.Sexp.to_string
+
+  let to_readable_string program =
+    program.ast |> List.map Ast.Node.to_string |> String.concat "\n"
+  ;;
 end

@@ -11,6 +11,8 @@ module T = struct
   ;;
 
   let set_key store key value =
+    print_endline
+      ("setting key " ^ key ^ " " ^ string_of_bool (Hashtbl.mem store.data key));
     match Hashtbl.mem store.data key with
     | true -> Failure ("variable " ^ key ^ " already set")
     | false ->

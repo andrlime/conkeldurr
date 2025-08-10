@@ -17,4 +17,5 @@ module T : sig
 
   val of_string : string -> t
   val to_string : t -> string
+  val to_readable_string : t -> string
 end
