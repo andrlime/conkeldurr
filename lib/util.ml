@@ -16,6 +16,6 @@ module T = struct
     let day = today.Unix.tm_mday in
     let month = today.Unix.tm_mon + 1 in
     let year = today.Unix.tm_year + 1900 in
-    Printf.sprintf "The current date is %04d-%02d-%02d" year month day
+    Printf.sprintf "%04d-%02d-%02d" year month day
   ;;
 end

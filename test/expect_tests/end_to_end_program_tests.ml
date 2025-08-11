@@ -28,6 +28,54 @@ let%expect_test "passes basic end to end test" =
 ;;
 
 let%expect_test "passes long end to end test" =
+  Entry.entry_point "medium_program_test.sexp";
+  [%expect
+    {|
+    export const dataset_name: string = "PEOPLE_NAMES";
+
+    export interface Person {
+    index: number;
+    firstname: string;
+    lastname: string;
+    };
+
+    export const people_names: Array<Person> = [
+    { index: 1, firstname: "KMYRYSJI", lastname: "QFVHADCF" },
+    { index: 2, firstname: "EJSNVQJD", lastname: "VBRSKMQQ" },
+    { index: 3, firstname: "SSQWBDHD", lastname: "NYVGSYBT" },
+    { index: 4, firstname: "WEAQZGIE", lastname: "EAENPYEM" },
+    { index: 5, firstname: "ETRMYIVI", lastname: "QVRNSTNZ" },
+    { index: 6, firstname: "TVXLVNRP", lastname: "MJAQKKDS" },
+    { index: 7, firstname: "DSCJUWJH", lastname: "DBTRFEVR" },
+    { index: 8, firstname: "NOHKNRWM", lastname: "LHUMAPHX" },
+    { index: 9, firstname: "VBALYGIJ", lastname: "GXDXIIJT" },
+    { index: 10, firstname: "WUMGKXYX", lastname: "HQTPMGQZ" },
+    { index: 11, firstname: "PJUFMSKN", lastname: "DSVDLPIW" },
+    { index: 12, firstname: "SLQHECZW", lastname: "BKYTKXQB" },
+    { index: 13, firstname: "POUZFKXZ", lastname: "FRQRDHIB" },
+    { index: 14, firstname: "BCXYJSVR", lastname: "KDIOLCBA" },
+    { index: 15, firstname: "ZWDSEQTA", lastname: "KHWLZTHL" },
+    { index: 16, firstname: "HYVQPKYY", lastname: "AXMAHGEC" },
+    { index: 17, firstname: "TPRCJUGA", lastname: "GDCMWFKH" },
+    { index: 18, firstname: "TZWGMPMC", lastname: "AAROTMYI" },
+    { index: 19, firstname: "PDEGDGMY", lastname: "CEEIXREP" },
+    { index: 20, firstname: "AISJHBMI", lastname: "NPQXWSEM" },
+    { index: 21, firstname: "XCEQEGFG", lastname: "VTDNTVUL" },
+    { index: 22, firstname: "XFYKFNPF", lastname: "MSJKMIYO" },
+    { index: 23, firstname: "PSZNVWYS", lastname: "ZHSWXHDI" },
+    { index: 24, firstname: "IPSKWSGY", lastname: "CTGFDJBQ" },
+    { index: 25, firstname: "CZNNWQIR", lastname: "PRDMYEHW" },
+    { index: 26, firstname: "ZZDAXQKN", lastname: "IHQQLPRZ" },
+    { index: 27, firstname: "UKLYKAHJ", lastname: "YUOAPRES" },
+    { index: 28, firstname: "APQYQEGS", lastname: "KITPJJRT" },
+    { index: 29, firstname: "RWGAATND", lastname: "BQYGTVSU" },
+    { index: 30, firstname: "RNIOVKHY", lastname: "NEVDDNQB" },
+    { index: 31, firstname: "OSDTLQTI", lastname: "BTEUFBLZ" }
+    ];
+    |}]
+;;
+
+let%expect_test "passes long end to end test" =
   Entry.entry_point "long_program_test.sexp";
   [%expect
     {|
