@@ -10,7 +10,6 @@ let conkeldurr_process_file file =
   let _ =
     Spreadsheet.CsvSpreadsheet.from_string
       "(String name),(Integer field),(Number otherfield)\nd,e,f"
-    |> Spreadsheet.CsvSpreadsheet.from_csv
   in
   ()
 ;;

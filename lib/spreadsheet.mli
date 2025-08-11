@@ -11,11 +11,8 @@ module CsvSpreadsheet : sig
     ; records : Record.T.t list
     }
 
-  val header_row : Csv.t -> string list
-  val body_rows : Csv.t -> Csv.t
-  val from_string : string -> Csv.t
-  val from_path : string -> Csv.t
-  val from_csv : Csv.t -> t
+  val from_string : string -> t
+  val from_path : string -> t
   val get_json : t -> string
   val get_interface : t -> string
 end

@@ -13,8 +13,6 @@ module CsvSpreadsheet = struct
 
   let header_row csv = List.hd csv
   let body_rows csv = List.tl csv
-  let from_string str = Csv.of_string str |> Csv.input_all
-  let from_path path = Csv.load path
 
   let from_csv csv =
     let headers = csv |> header_row |> List.map Header.Parser.parse in
@@ -23,6 +21,8 @@ module CsvSpreadsheet = struct
     { headers; records }
   ;;
 
+  let from_string str = Csv.of_string str |> Csv.input_all |> from_csv
+  let from_path path = Csv.load path |> from_csv
   let get_json _ = ""
   let get_interface _ = ""
 end

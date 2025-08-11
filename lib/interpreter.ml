@@ -28,7 +28,7 @@ module T = struct
 
   let interpret_read_spreadsheet _ _ = raise (Failure "Not implemented")
 
-  let export state (node : Ast.Export.t) =
+  let interpret_export state (node : Ast.Export.t) =
     let contents = Store.T.to_string state.variable_store Literal.T.to_string in
     match node with
     | Ast.Export.File file -> Io.write_file file contents
@@ -40,7 +40,7 @@ module T = struct
     | Ast.Node.ReadConstant n -> interpret_read_constant state n
     | Ast.Node.ReadVariable n -> interpret_read_variable state n
     | Ast.Node.ReadSpreadsheet n -> interpret_read_spreadsheet state n
-    | Ast.Node.Export n -> export state n
+    | Ast.Node.Export n -> interpret_export state n
   ;;
 
   let create_blank_state () = { variable_store = Store.T.create () }
