@@ -1,3 +1,4 @@
+(* Represents a stateful interpreter that stores everything in hash maps *)
 module T : sig
   type state =
     { variable_store : Literal.T.v Store.T.t
@@ -8,5 +9,7 @@ module T : sig
 
   val interpret_node : state -> Ast.Node.t -> unit
   val create_blank_state : unit -> state
+
+  (* Entry point to the module, and interprets nodes using List.iter *)
   val interpret : Program.T.t -> unit
 end

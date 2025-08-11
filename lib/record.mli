@@ -1,3 +1,4 @@
+(* A single record in a spreadsheet. For the most part identical to Literal, but by no means the same. *)
 module Value : sig
   type record_type =
     | Enum of string
@@ -18,6 +19,7 @@ module Value : sig
   val to_json : t -> string
 end
 
+(* A spreadsheet row, i.e a list of Record.Value.t *)
 module T : sig
   type t = Value.t list
 

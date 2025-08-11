@@ -1,3 +1,4 @@
+(* Some useful file system utils *)
 module Files : sig
   val get_absolute_file_path : string -> string
   val is_valid_path : string -> bool

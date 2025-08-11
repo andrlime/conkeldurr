@@ -1,3 +1,4 @@
+(* A generalised Hashtbl.t backed store for various types, like variables and spreadsheets *)
 module T : sig
   type 'a t = { data : (string, 'a) Hashtbl.t }
 

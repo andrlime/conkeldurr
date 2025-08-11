@@ -1,3 +1,5 @@
+(* Represents a module imported from some file *)
 module T : sig
-  val to_string : string * Variable.T.t -> string
+  type t = string * Variable.T.t
+  val to_string : t -> string
 end
