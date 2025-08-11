@@ -191,3 +191,24 @@ let%expect_test "passes long end to end test" =
     ];
     |}]
 ;;
+
+let%expect_test "fails on duplicate variable name" =
+  try Entry.entry_point "fail_dupe_variable.sexp" with
+  | Failure msg ->
+    print_endline msg;
+    [%expect {| variable thing already set |}]
+;;
+
+let%expect_test "fails on duplicate spreadsheet name" =
+  try Entry.entry_point "fail_dupe_sheet_name.sexp" with
+  | Failure msg ->
+    print_endline msg;
+    [%expect {| variable spreadsheet_123 already set |}]
+;;
+
+let%expect_test "fails on duplicate interface name" =
+  try Entry.entry_point "fail_dupe_interface.sexp" with
+  | Failure msg ->
+    print_endline msg;
+    [%expect {| variable SomeType already set |}]
+;;
