@@ -52,16 +52,19 @@ module Value = struct
     | Boolean b -> string_of_bool b
   ;;
 
-  let to_json t = Printf.sprintf "%s: %s" t.name (get_value t.value)
+  let[@inline] to_json t = Printf.sprintf "%s: %s" t.name (get_value t.value)
 end
 
 module T = struct
   type t = Value.t list [@@deriving sexp]
 
-  let from_list headers list = List.combine headers list |> List.map Value.from_header
-  let to_string t = t |> sexp_of_t |> Sexplib.Sexp.to_string
+  let[@inline] from_list headers list =
+    List.combine headers list |> List.map Value.from_header
+  ;;
 
-  let to_json t =
+  let[@inline] to_string t = t |> sexp_of_t |> Sexplib.Sexp.to_string
+
+  let[@inline] to_json t =
     t |> List.map Value.to_json |> String.concat ", " |> Printf.sprintf "\t{ %s }"
   ;;
 end

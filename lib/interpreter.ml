@@ -73,7 +73,7 @@ module T = struct
     }
   ;;
 
-  let interpret (program : Program.T.t) =
+  let[@inline] interpret (program : Program.T.t) =
     let state = create_blank_state () in
     List.iter (interpret_node state) program.ast
   ;;
