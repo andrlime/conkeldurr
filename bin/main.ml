@@ -1,9 +1,7 @@
 open Conkeldurr
 open Cmdliner
 
-let conkeldurr_process_file file =
-  file |> Entry.entry_point
-;;
+let conkeldurr_process_file file = file |> Entry.entry_point
 
 let input_file_arg =
   let doc = "A file to interpret, provided via --input or -i." in

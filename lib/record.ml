@@ -46,7 +46,7 @@ module Value = struct
 
   let get_value t =
     match t with
-    | String s -> Io.quote s
+    | String s -> Util.T.quote s
     | Integer i -> string_of_int i
     | Float f -> string_of_float f
     | Boolean b -> string_of_bool b

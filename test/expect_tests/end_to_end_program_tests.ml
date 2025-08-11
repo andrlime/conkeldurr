@@ -2,7 +2,6 @@ open Conkeldurr
 
 let%expect_test "passes end to end testt" =
   Sys.chdir "./cases";
-
   Entry.entry_point "basic_program_test.sexp";
   [%expect
     {|
@@ -25,7 +24,6 @@ let%expect_test "passes end to end testt" =
     { a: "D", b: "E", c: "F", ab: 3.1, bc: 33, cd: true }
     ];
     |}];
-  
   Entry.entry_point "long_program_test.sexp";
   [%expect
     {|
