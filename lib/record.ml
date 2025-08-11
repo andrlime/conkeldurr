@@ -15,9 +15,8 @@ module Value = struct
     }
   [@@deriving sexp]
 
-  let parse_enum str = 
-    if not (Variable.T.is_valid str) then
-    failwith ("invalid enum name " ^ str);
+  let parse_enum str =
+    if not (Variable.T.is_valid str) then failwith ("invalid enum name " ^ str);
     Enum str
   ;;
 
@@ -45,7 +44,7 @@ module Value = struct
 
   let from_header (header, element) =
     match (header : Header.T.t) with
-    | Enum (_, name) -> { name ; value = parse_enum element }
+    | Enum (_, name) -> { name; value = parse_enum element }
     | String name -> { name; value = parse_string element }
     | Boolean name -> { name; value = parse_boolean element }
     | Integer name -> { name; value = parse_integer element }
