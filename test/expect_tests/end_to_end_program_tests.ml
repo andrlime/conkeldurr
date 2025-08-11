@@ -40,8 +40,8 @@ let%expect_test "passes enums end to end test" =
     };
 
     export const SOME_SHEET: Array<Type> = [
-    { a: A },
-    { a: B },
+    { a: Something.A },
+    { a: Something.B },
     { a: C },
     { a: D },
     { a: E }

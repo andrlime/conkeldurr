@@ -94,6 +94,12 @@ module ValidName = struct
     | _ -> false
   ;;
 
+  let is_valid_enum_character c =
+    match c with
+    | 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '.' | '$' -> true
+    | _ -> false
+  ;;
+
   let is_valid_character c =
     match c with
     | 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' | '_' | '$' -> true
@@ -105,10 +111,17 @@ module ValidName = struct
     && is_valid_first_character name.[0]
     && name |> String.for_all is_valid_character
   ;;
+
+  let check_enum name =
+    String.length name > 0
+    && is_valid_first_character name.[0]
+    && name |> String.for_all is_valid_enum_character
+  ;;
 end
 
 module T = struct
   type t = string [@@deriving sexp]
 
   let is_valid name = ValidName.check name && not (Keywords.is_keyword name)
+  let is_valid_enum name = ValidName.check_enum name && not (Keywords.is_keyword name)
 end

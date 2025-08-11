@@ -16,7 +16,7 @@ module Value = struct
   [@@deriving sexp]
 
   let parse_enum str =
-    if not (Variable.T.is_valid str) then failwith ("invalid enum name " ^ str);
+    if not (Variable.T.is_valid_enum str) then failwith ("invalid enum name " ^ str);
     Enum str
   ;;
 
