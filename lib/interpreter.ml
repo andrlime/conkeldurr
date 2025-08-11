@@ -22,7 +22,7 @@ module T = struct
 
   let interpret_csv_spreadsheet state var interface path =
     (* if Io.is_invalid_path path
-      then raise (Failure ("invalid path " ^ path)); *)
+      then raise (Failure ("invalid path " ^ path)); TODO: *)
     let sheet_store = state.spreadsheet_store in
     let new_sheet = Spreadsheet.Csv0.from_path path in
     Store.T.set_key sheet_store var (Spreadsheet.Csv { interface; contents = new_sheet })
@@ -47,9 +47,8 @@ module T = struct
       Printf.sprintf
         {|
 %s
-
 %s
-    |}
+      |}
         var_contents
         spreadsheet_contents
     in
