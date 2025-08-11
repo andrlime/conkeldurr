@@ -1,6 +1,6 @@
 open Conkeldurr
 
-let%expect_test "interpreter_passes_on_good_program" =
+let%expect_test "can interpret simple variable program" =
   let program =
     {|
   ((ReadConstant ((var "thing1") (value (String "ABCDEF"))))
@@ -22,7 +22,7 @@ let%expect_test "interpreter_passes_on_good_program" =
   |}]
 ;;
 
-let%expect_test "interpreter_fails_on_duplicate_variables" =
+let%expect_test "fails on duplicate variable names" =
   let program =
     {|
   ((ReadConstant ((var "thing1") (value (String "ABCDEF"))))
@@ -37,7 +37,35 @@ let%expect_test "interpreter_fails_on_duplicate_variables" =
     [%expect {| variable thing2 already set |}]
 ;;
 
-let%expect_test "interpreter_fails_on_keyword_variables" =
+let%expect_test "fails on duplicate spreadsheet names" =
+  let program =
+    {|
+  ((ReadSpreadsheet ((var "spreadsheet_123") (interface "Interface1") (path (Csv "./cases/data/sample_spreadsheet.csv"))))
+  (ReadSpreadsheet ((var "spreadsheet_123") (interface "Interface2") (path (Csv "./cases/data/sample_spreadsheet.csv"))))
+  (Export Stdout))
+  |}
+  in
+  try program |> Program.T.of_string |> Interpreter.T.interpret with
+  | Failure msg ->
+    print_endline msg;
+    [%expect {| variable spreadsheet_123 already set |}]
+;;
+
+let%expect_test "fails on duplicate interface names" =
+  let program =
+    {|
+  ((ReadSpreadsheet ((var "spreadsheet_123") (interface "Interface1") (path (Csv "./cases/data/sample_spreadsheet.csv"))))
+  (ReadSpreadsheet ((var "spreadsheet_456") (interface "Interface1") (path (Csv "./cases/data/sample_spreadsheet.csv"))))
+  (Export Stdout))
+  |}
+  in
+  try program |> Program.T.of_string |> Interpreter.T.interpret with
+  | Failure msg ->
+    print_endline msg;
+    [%expect {| variable Interface1 already set |}]
+;;
+
+let%expect_test "fails on TypeScript keywords" =
   Variable.Keywords.keywords_list
   |> List.iter (fun kw ->
     let program =

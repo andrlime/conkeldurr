@@ -1,7 +1,8 @@
 open Conkeldurr
 
-let%expect_test "passes end to end test" =
-  Sys.chdir "./cases";
+let%expect_test "end to end test setup" = Sys.chdir "./cases"
+
+let%expect_test "passes basic end to end test" =
   Entry.entry_point "basic_program_test.sexp";
   [%expect
     {|
@@ -23,7 +24,10 @@ let%expect_test "passes end to end test" =
     { a: "A", b: "B", c: "C", ab: 1., bc: 2, cd: false },
     { a: "D", b: "E", c: "F", ab: 3.1, bc: 33, cd: true }
     ];
-    |}];
+    |}]
+;;
+
+let%expect_test "passes long end to end test" =
   Entry.entry_point "long_program_test.sexp";
   [%expect
     {|
@@ -37,10 +41,25 @@ let%expect_test "passes end to end test" =
     ab: number;
     bc: number;
     cd: boolean;
+    };
+
+    export const spreadsheet_123: Array<SomeType> = [
+    { a: "A", b: "B", c: "C", ab: 1., bc: 2, cd: false },
+    { a: "D", b: "E", c: "F", ab: 3.1, bc: 33, cd: true }
+    ];
+
+
+    export interface SomeType2 {
+    a: string;
+    b: string;
+    c: string;
+    ab: number;
+    bc: number;
+    cd: boolean;
     de: number;
     };
 
-    export const spreadsheet_456: Array<SomeType> = [
+    export const spreadsheet_456: Array<SomeType2> = [
     { a: "Alpha", b: "Beta", c: "Gamma", ab: 0.5, bc: 10, cd: true, de: 3. },
     { a: "Delta", b: "Echo", c: "Foxtrot", ab: 1.2, bc: 21, cd: false, de: 7. },
     { a: "Giga", b: "Hera", c: "Iota", ab: 2.4, bc: 32, cd: true, de: 5. },
@@ -169,21 +188,6 @@ let%expect_test "passes end to end test" =
     { a: "Sna", b: "Tna", c: "Una", ab: 5.7, bc: 90, cd: false, de: 5. },
     { a: "Vna", b: "Wna", c: "Xna", ab: 6., bc: 11, cd: true, de: 2. },
     { a: "Yna", b: "Zna", c: "Apa", ab: 7.4, bc: 22, cd: false, de: 15. }
-    ];
-
-
-    export interface SomeType {
-    a: string;
-    b: string;
-    c: string;
-    ab: number;
-    bc: number;
-    cd: boolean;
-    };
-
-    export const spreadsheet_123: Array<SomeType> = [
-    { a: "A", b: "B", c: "C", ab: 1., bc: 2, cd: false },
-    { a: "D", b: "E", c: "F", ab: 3.1, bc: 33, cd: true }
     ];
     |}]
 ;;

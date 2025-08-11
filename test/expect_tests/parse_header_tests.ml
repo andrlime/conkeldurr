@@ -22,7 +22,7 @@ let%expect_test "parse multiple headers" =
   [%expect {| ((Float abc)(Float def)(String ghi)) |}]
 ;;
 
-let%expect_test "parse from csv" =
+let%expect_test "parse headers from csv string" =
   let csv =
     Spreadsheet.Csv0.from_string
       {|
@@ -31,6 +31,12 @@ let%expect_test "parse from csv" =
       D,E,F,3.1,33,true
       |}
   in
+  csv.headers |> Header.sexp_of_t |> Sexplib.Sexp.to_string |> print_endline;
+  [%expect {| ((String a)(String b)(String c)(Float ab)(Integer bc)(Boolean cd)) |}]
+;;
+
+let%expect_test "parse headers from csv file" =
+  let csv = Spreadsheet.Csv0.from_path "./cases/data/sample_spreadsheet.csv" in
   csv.headers |> Header.sexp_of_t |> Sexplib.Sexp.to_string |> print_endline;
   [%expect {| ((String a)(String b)(String c)(Float ab)(Integer bc)(Boolean cd)) |}]
 ;;

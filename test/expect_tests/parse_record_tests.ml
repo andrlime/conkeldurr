@@ -1,6 +1,6 @@
 open Conkeldurr
 
-let%expect_test "parse basic records from csv" =
+let%expect_test "parse records from csv string" =
   let csv =
     Spreadsheet.Csv0.from_string
       {|
@@ -9,6 +9,16 @@ let%expect_test "parse basic records from csv" =
       D,E,F,3.1,33,true
       |}
   in
+  csv.records |> List.map Record.T.to_string |> List.iter print_endline;
+  [%expect
+    {|
+  (((name a)(value(String A)))((name b)(value(String B)))((name c)(value(String C)))((name ab)(value(Float 1)))((name bc)(value(Integer 2)))((name cd)(value(Boolean false))))
+  (((name a)(value(String D)))((name b)(value(String E)))((name c)(value(String F)))((name ab)(value(Float 3.1)))((name bc)(value(Integer 33)))((name cd)(value(Boolean true))))
+  |}]
+;;
+
+let%expect_test "parse records from csv file" =
+  let csv = Spreadsheet.Csv0.from_path "./cases/data/sample_spreadsheet.csv" in
   csv.records |> List.map Record.T.to_string |> List.iter print_endline;
   [%expect
     {|
