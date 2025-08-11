@@ -13,7 +13,6 @@ depends: [
   "dune" {>= "3.18"}
   "ocaml"
   "ocamlformat"
-  "ounit2"
   "csv"
   "core_unix"
   "sexplib"
