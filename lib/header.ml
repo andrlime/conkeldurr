@@ -40,7 +40,7 @@ module Parser = struct
     |> List.iter (fun hdr ->
       let header_name = T.get_string hdr in
       if Hashtbl.mem seen header_name
-      then raise (Failure "Cannot have duplicate columns")
+      then failwith "Cannot have duplicate columns"
       else Hashtbl.add seen header_name ())
   ;;
 
