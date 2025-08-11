@@ -33,7 +33,7 @@ let%expect_test "passes enums end to end test" =
   [%expect
     {|
     import { Something } from "some-file.ts";
-
+    export const apple: Fruit = Apple;
 
     export interface Type {
     a: Something;

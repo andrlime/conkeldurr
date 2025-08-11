@@ -1,3 +1,4 @@
+(* Represents a program linked list of AST nodes. Type t can be extended with a program counter, but it doesn't really serve a purpose other than being a wrapper. *)
 module T : sig
   type ast = Ast.Node.t list
 

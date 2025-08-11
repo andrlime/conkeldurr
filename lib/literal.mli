@@ -1,4 +1,6 @@
+(* Represents a literal value in const/let statements *)
 module T : sig
+  (* The actual value. Enum contains the actual enum type, while everything else only contains value. *)
   type t =
     | Enum of string * string
     | String of string
@@ -6,6 +8,7 @@ module T : sig
     | Float of float
     | Boolean of bool
 
+  (* Represents whether is const or let *)
   type v =
     | Constant of t
     | Mutable of t
