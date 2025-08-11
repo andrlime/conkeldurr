@@ -6,6 +6,7 @@ let%expect_test "passes basic end to end test" =
   Entry.entry_point "basic_program_test.sexp";
   [%expect
     {|
+    import { SomeEnum } from "some-file.ts";
     export const thing2: number = 123;
     export const thing5: string = "a afsdafds afsdsa";
     export const thing: string = "ABCDEF";
@@ -31,6 +32,8 @@ let%expect_test "passes long end to end test" =
   Entry.entry_point "medium_program_test.sexp";
   [%expect
     {|
+    import { SomeEnum } from "some-file.ts";
+    import { SomeOtherEnum } from "some-other-file.ts";
     export const dataset_name: string = "PEOPLE_NAMES";
 
     export interface Person {
@@ -79,6 +82,9 @@ let%expect_test "passes long end to end test" =
   Entry.entry_point "long_program_test.sexp";
   [%expect
     {|
+    import { SomeEnum } from "some-file.ts";
+    import { SomeOtherEnum } from "some-other-file.ts";
+    import { SomeOtherEnum2 } from "some-other-file.ts";
     export const thing2: number = 123;
     export const thing: string = "ABCDEF";
 
@@ -259,4 +265,11 @@ let%expect_test "fails on duplicate interface name" =
   | Failure msg ->
     print_endline msg;
     [%expect {| variable SomeType already set |}]
+;;
+
+let%expect_test "fails on duplicate imported modules" =
+  try Entry.entry_point "fail_dupe_import.sexp" with
+  | Failure msg ->
+    print_endline msg;
+    [%expect {| variable SomeEnum already set |}]
 ;;

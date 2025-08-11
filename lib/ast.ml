@@ -51,6 +51,16 @@ module ReadSpreadsheet = struct
   ;;
 end
 
+module Import = struct
+  type t =
+    { var : Variable.T.t
+    ; from : Variable.T.t
+    }
+  [@@deriving sexp]
+
+  let to_string node = Printf.sprintf "Import %s from %s" node.var node.from
+end
+
 module Export = struct
   type t =
     | File of string
@@ -71,6 +81,7 @@ module Node = struct
     | ReadConstant of ReadConstant.t
     | ReadVariable of ReadVariable.t
     | ReadSpreadsheet of ReadSpreadsheet.t
+    | Import of Import.t
     | Export of Export.t
   [@@deriving sexp]
 
@@ -79,6 +90,7 @@ module Node = struct
     | ReadConstant n -> ReadConstant.to_string n
     | ReadVariable n -> ReadVariable.to_string n
     | ReadSpreadsheet n -> ReadSpreadsheet.to_string n
+    | Import n -> Import.to_string n
     | Export n -> Export.to_string n
   ;;
 end

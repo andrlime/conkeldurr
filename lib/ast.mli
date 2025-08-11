@@ -32,6 +32,17 @@ module ReadSpreadsheet : sig
   val to_string : t -> string
 end
 
+module Import : sig
+  type t =
+    { var : Variable.T.t
+    ; from : Variable.T.t
+    }
+
+  val t_of_sexp : Sexplib0.Sexp.t -> t
+  val sexp_of_t : t -> Sexplib0.Sexp.t
+  val to_string : t -> string
+end
+
 module Export : sig
   type t =
     | File of string
@@ -47,6 +58,7 @@ module Node : sig
     | ReadConstant of ReadConstant.t
     | ReadVariable of ReadVariable.t
     | ReadSpreadsheet of ReadSpreadsheet.t
+    | Import of Import.t
     | Export of Export.t
 
   val t_of_sexp : Sexplib0.Sexp.t -> t

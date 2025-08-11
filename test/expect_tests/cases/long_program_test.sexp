@@ -1,4 +1,7 @@
 (
+	(Import ((var SomeEnum) (from some-file.ts)))
+	(Import ((var SomeOtherEnum) (from some-other-file.ts)))
+	(Import ((var SomeOtherEnum2) (from some-other-file.ts)))
 	(ReadConstant ((var "thing") (value (String "ABCDEF"))))
 	(ReadConstant ((var "thing2") (value (Integer 123))))
 	(ReadSpreadsheet ((var "spreadsheet_123") (interface "SomeType") (path (Csv "./data/sample_spreadsheet.csv"))))
