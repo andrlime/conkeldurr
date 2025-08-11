@@ -3,6 +3,7 @@ module T = struct
     { variable_store : Literal.T.v Store.T.t
     ; spreadsheet_store : Spreadsheet.t Store.T.t
     ; interface_set : Variable.T.t Store.T.t
+    ; import_store : Variable.T.t Store.T.t
     }
 
   let interpret_read_constant state (node : Ast.ReadConstant.t) =
@@ -39,7 +40,15 @@ module T = struct
     | Csv p -> interpret_csv_spreadsheet state variable interface p
   ;;
 
+  let interpret_import state (node : Ast.Import.t) =
+    let target, from = node.var, node.from in
+    if not (Variable.T.is_valid target)
+    then failwith ("invalid import value name " ^ target);
+    Store.T.set_key state.import_store target from
+  ;;
+
   let interpret_export state (node : Ast.Export.t) =
+    let import_contents = Store.T.to_string state.import_store Import.T.to_string in
     let var_contents = Store.T.to_string state.variable_store Literal.T.to_string in
     let spreadsheet_contents =
       Store.T.to_string state.spreadsheet_store Spreadsheet.Writer.to_string
@@ -49,7 +58,9 @@ module T = struct
         {|
 %s
 %s
+%s
       |}
+        import_contents
         var_contents
         spreadsheet_contents
     in
@@ -69,6 +80,7 @@ module T = struct
     | Ast.Node.ReadConstant n -> interpret_read_constant state n
     | Ast.Node.ReadVariable n -> interpret_read_variable state n
     | Ast.Node.ReadSpreadsheet n -> interpret_read_spreadsheet state n
+    | Ast.Node.Import n -> interpret_import state n
     | Ast.Node.Export n ->
       interpret_export state n;
       reset_state state
@@ -78,6 +90,7 @@ module T = struct
     { variable_store = Store.T.create ()
     ; spreadsheet_store = Store.T.create ()
     ; interface_set = Store.T.create ()
+    ; import_store = Store.T.create ()
     }
   ;;
 
