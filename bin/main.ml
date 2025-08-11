@@ -2,11 +2,7 @@ open Conkeldurr
 open Cmdliner
 
 let conkeldurr_process_file file =
-  file
-  |> Io.set_working_directory
-  |> Io.read_file
-  |> Program.T.of_string
-  |> Interpreter.T.interpret
+  file |> Entry.entry_point
 ;;
 
 let input_file_arg =

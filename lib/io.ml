@@ -20,6 +20,12 @@ let get_current_date () =
 
 let get_absolute_file_path file = file |> unquote |> Filename_unix.realpath
 
+let is_valid_path path =
+  path
+  |> get_absolute_file_path
+  |> Sys.file_exists
+;;
+
 let set_working_directory input =
   let full_path = input |> get_absolute_file_path in
   full_path |> Filename.dirname |> Sys.chdir;

@@ -6,3 +6,4 @@ val set_working_directory : string -> string
 val read_file : string -> string
 val write_file : string -> string -> unit
 val get_current_date : unit -> string
+val is_valid_path : string -> bool
