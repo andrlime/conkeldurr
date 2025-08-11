@@ -65,7 +65,7 @@ let%expect_test "fails on duplicate interface names" =
     [%expect {| variable Interface1 already set |}]
 ;;
 
-let%expect_test "fails on invalid variable names keywords" =
+let%expect_test "fails on invalid variable names" =
   [ "1a"; "banana_"; "a$bcd"; "abc123_"; "_"; "$$aa"; "--" ]
   |> List.iter (fun kw ->
     let program =
@@ -173,4 +173,50 @@ let%expect_test "fails on TypeScript keywords" =
   invalid TypeScript variable name with
   invalid TypeScript variable name yield
   |}]
+;;
+
+let%expect_test "fails on invalid spreadsheet names" =
+  [ "interface"; "1banana_"; "var"; "enum"; "class"; "validbanana"; "--" ]
+  |> List.iter (fun kw ->
+    let program =
+      Printf.sprintf
+        {|
+    ((ReadSpreadsheet ((var %s) (interface "Interface2") (path (Csv "./cases/data/sample_spreadsheet.csv")))))
+    |}
+        kw
+    in
+    try program |> Program.T.of_string |> Interpreter.T.interpret with
+    | Failure msg -> print_endline msg);
+  [%expect
+    {|
+    invalid TypeScript variable name interface
+    invalid TypeScript variable name 1banana_
+    invalid TypeScript variable name var
+    invalid TypeScript variable name enum
+    invalid TypeScript variable name class
+    invalid TypeScript variable name --
+    |}]
+;;
+
+let%expect_test "fails on invalid spreadsheet interfaces" =
+  [ "interface"; "1banana_"; "var"; "enum"; "class"; "validbanana"; "--" ]
+  |> List.iter (fun kw ->
+    let program =
+      Printf.sprintf
+        {|
+    ((ReadSpreadsheet ((var "spreadsheet1") (interface %s) (path (Csv "./cases/data/sample_spreadsheet.csv")))))
+    |}
+        kw
+    in
+    try program |> Program.T.of_string |> Interpreter.T.interpret with
+    | Failure msg -> print_endline msg);
+  [%expect
+    {|
+    invalid TypeScript interface name interface
+    invalid TypeScript interface name 1banana_
+    invalid TypeScript interface name var
+    invalid TypeScript interface name enum
+    invalid TypeScript interface name class
+    invalid TypeScript interface name --
+    |}]
 ;;
