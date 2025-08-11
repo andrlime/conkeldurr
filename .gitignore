@@ -3,7 +3,6 @@ examples/*.ts
 
 .DS_Store
 
-data/
 out/
 dist/
 output/
