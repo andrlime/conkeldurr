@@ -65,6 +65,25 @@ let%expect_test "fails on duplicate interface names" =
     [%expect {| variable Interface1 already set |}]
 ;;
 
+let%expect_test "fails on invalid variable names keywords" =
+  [ "1a"; "banana_"; "a$bcd"; "abc123_"; "_"; "$$aa"; "--" ]
+  |> List.iter (fun kw ->
+    let program =
+      Printf.sprintf
+        {|
+    ((ReadConstant ((var %s) (value (String "ABCDEF")))))
+    |}
+        kw
+    in
+    try program |> Program.T.of_string |> Interpreter.T.interpret with
+    | Failure msg -> print_endline msg);
+  [%expect
+    {|
+    invalid TypeScript variable name 1a
+    invalid TypeScript variable name --
+  |}]
+;;
+
 let%expect_test "fails on TypeScript keywords" =
   Variable.Keywords.keywords_list
   |> List.iter (fun kw ->

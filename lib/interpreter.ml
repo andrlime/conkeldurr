@@ -7,16 +7,16 @@ module T = struct
 
   let interpret_read_constant state (node : Ast.ReadConstant.t) =
     let variable, value = node.var, node.value in
-    if Variable.Keywords.is_keyword variable
-    then raise (Failure ("invalid TypeScript variable name " ^ variable));
+    if not (Variable.T.is_valid variable)
+    then failwith ("invalid TypeScript variable name " ^ variable);
     let store = state.variable_store in
     Store.T.set_key store variable (Constant value)
   ;;
 
   let interpret_read_variable state (node : Ast.ReadVariable.t) =
     let variable, value = node.var, node.value in
-    if Variable.Keywords.is_keyword variable
-    then raise (Failure ("invalid TypeScript variable name " ^ variable));
+    if not (Variable.T.is_valid variable)
+    then failwith ("invalid TypeScript variable name " ^ variable);
     let store = state.variable_store in
     Store.T.set_key store variable (Mutable value)
   ;;
@@ -31,10 +31,10 @@ module T = struct
 
   let interpret_read_spreadsheet state (node : Ast.ReadSpreadsheet.t) =
     let variable, interface, path = node.var, node.interface, node.path in
-    if Variable.Keywords.is_keyword variable
-    then raise (Failure ("invalid TypeScript variable name " ^ variable));
-    if Variable.Keywords.is_keyword interface
-    then raise (Failure ("invalid TypeScript interface name " ^ interface));
+    if not (Variable.T.is_valid variable)
+    then failwith ("invalid TypeScript variable name " ^ variable);
+    if not (Variable.T.is_valid interface)
+    then failwith ("invalid TypeScript interface name " ^ interface);
     match path with
     | Csv p -> interpret_csv_spreadsheet state variable interface p
   ;;
