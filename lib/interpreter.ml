@@ -58,12 +58,21 @@ module T = struct
     | Ast.Export.Stdout -> print_endline contents
   ;;
 
+  let reset_state state =
+    Store.T.clear state.variable_store;
+    Store.T.clear state.spreadsheet_store;
+    Store.T.clear state.interface_set;
+  ;;
+
   let interpret_node state node =
     match node with
     | Ast.Node.ReadConstant n -> interpret_read_constant state n
     | Ast.Node.ReadVariable n -> interpret_read_variable state n
     | Ast.Node.ReadSpreadsheet n -> interpret_read_spreadsheet state n
-    | Ast.Node.Export n -> interpret_export state n
+    | Ast.Node.Export n -> (
+      interpret_export state n;
+      reset_state state
+    )
   ;;
 
   let create_blank_state () =

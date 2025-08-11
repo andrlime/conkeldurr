@@ -6,6 +6,8 @@ module T = struct
     { data = table }
   ;;
 
+  let clear store = Hashtbl.clear store.data
+
   let set_key store key value =
     match Hashtbl.mem store.data key with
     | true -> raise (Failure ("variable " ^ key ^ " already set"))

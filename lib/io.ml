@@ -24,8 +24,8 @@ let write_file path content =
   let dated_content =
     Printf.sprintf
       {|// This file was auto-generated. DO NOT modify this file by hand.
-  // Generated on %s
-  %s
+// Generated on %s
+%s
     |}
       (Util.T.get_current_date ())
       content
