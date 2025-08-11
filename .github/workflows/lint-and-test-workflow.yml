@@ -37,15 +37,12 @@ jobs:
         run: opam init --bare --disable-sandboxing && eval $(opam env)
         
       - name: Install dependencies
-        working-directory: ./src
         run: opam install . --deps-only
 
       - name: Run lint
-        working-directory: ./src
         run: eval $(opam env) && dune fmt
 
       - name: Run tests
-        working-directory: ./src
         run: eval $(opam env) && dune test
 
 
