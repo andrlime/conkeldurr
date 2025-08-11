@@ -1,6 +1,6 @@
 open Conkeldurr
 
-let%expect_test "parses_read_constant_correctly" =
+let%expect_test "parses ReadConstant correctly" =
   let sample_sexp =
     {|
   ((ReadConstant ((var "thing") (value (String "ABCDEF"))))
@@ -15,7 +15,7 @@ let%expect_test "parses_read_constant_correctly" =
   |}]
 ;;
 
-let%expect_test "parses_read_mutable_correctly" =
+let%expect_test "parses ReadVariable correctly" =
   let sample_sexp =
     {|
   ((ReadVariable ((var "thing") (value (String "ABCDEF"))))
@@ -32,7 +32,7 @@ let%expect_test "parses_read_mutable_correctly" =
   |}]
 ;;
 
-let%expect_test "parses_read_spreadsheet_correctly" =
+let%expect_test "parses ReadSpreadsheet correctly" =
   let sample_sexp =
     {|
   ((ReadSpreadsheet ((var "spreadsheet_123") (interface "INTERFACE_123") (path (Csv "./hello.csv")))))
@@ -45,7 +45,7 @@ let%expect_test "parses_read_spreadsheet_correctly" =
   |}]
 ;;
 
-let%expect_test "parses_export_correctly" =
+let%expect_test "parses Export correctly" =
   let sample_sexp =
     {|
   ((Export (File "abc.csv"))

@@ -2,6 +2,7 @@ module T = struct
   type state =
     { variable_store : Literal.T.v Store.T.t
     ; spreadsheet_store : Spreadsheet.t Store.T.t
+    ; interface_set : Variable.T.t Store.T.t
     }
 
   let interpret_read_constant state (node : Ast.ReadConstant.t) =
@@ -24,7 +25,8 @@ module T = struct
     if not (Io.Files.is_valid_path path) then raise (Failure ("invalid path " ^ path));
     let sheet_store = state.spreadsheet_store in
     let new_sheet = Spreadsheet.Csv0.from_path path in
-    Store.T.set_key sheet_store var (Spreadsheet.Csv { interface; contents = new_sheet })
+    Store.T.set_key sheet_store var (Spreadsheet.Csv { interface; contents = new_sheet });
+    Store.T.set_key state.interface_set interface interface
   ;;
 
   let interpret_read_spreadsheet state (node : Ast.ReadSpreadsheet.t) =
@@ -65,7 +67,10 @@ module T = struct
   ;;
 
   let create_blank_state () =
-    { variable_store = Store.T.create (); spreadsheet_store = Store.T.create () }
+    { variable_store = Store.T.create ()
+    ; spreadsheet_store = Store.T.create ()
+    ; interface_set = Store.T.create ()
+    }
   ;;
 
   let interpret (program : Program.T.t) =
