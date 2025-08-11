@@ -36,6 +36,7 @@ let%expect_test "parse string column" =
       B
       C
       Longer string
+      "string with a comma,"
       |}
   in
   csv.records |> List.map Record.T.to_string |> List.iter print_endline;
@@ -45,6 +46,7 @@ let%expect_test "parse string column" =
     (((name a)(value(String B))))
     (((name a)(value(String C))))
     (((name a)(value(String"Longer string"))))
+    (((name a)(value(String"string with a comma,"))))
   |}]
 ;;
 

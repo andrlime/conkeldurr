@@ -1,0 +1,48 @@
+name: "[ci] Lint and test"
+
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    branches:
+      - "main"
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up OCaml
+        uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: 5.1.0
+          cache-prefix: v1
+          dune-cache: true
+        
+      - name: Cache OPAM dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.opam
+            _opam
+          key: ${{ runner.os }}-opam-${{ hashFiles('*.opam', 'opam.locked') }}
+          restore-keys: |
+            ${{ runner.os }}-opam-
+        
+      - name: Set up OPAM environment
+        run: opam init --bare --disable-sandboxing
+        
+      - name: Install dependencies
+        run: opam install . --deps-only
+
+      - name: Run lint
+        run: eval $(opam env) && dune fmt
+
+      - name: Run tests
+        run: eval $(opam env) && dune test
+
+

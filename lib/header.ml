@@ -9,8 +9,8 @@ module T = struct
     | Number of string
   [@@deriving sexp]
 
-  let of_string hdr = hdr |> Sexplib.Sexp.of_string |> t_of_sexp
-  let to_sexp_string hdr = hdr |> sexp_of_t |> Sexplib.Sexp.to_string
+  let[@inline] of_string hdr = hdr |> Sexplib.Sexp.of_string |> t_of_sexp
+  let[@inline] to_sexp_string hdr = hdr |> sexp_of_t |> Sexplib.Sexp.to_string
 
   let to_string hdr =
     match hdr with
@@ -44,7 +44,7 @@ module Parser = struct
       else Hashtbl.add seen header_name ())
   ;;
 
-  let parse_all headers = headers |> List.map parse
+  let[@inline] parse_all headers = headers |> List.map parse
 end
 
 type t = T.t list [@@deriving sexp]

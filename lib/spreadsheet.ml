@@ -16,8 +16,8 @@ module Csv0 = struct
     ; contents : t
     }
 
-  let header_row csv = List.hd csv
-  let body_rows csv = List.tl csv
+  let[@inline] header_row csv = List.hd csv
+  let[@inline] body_rows csv = List.tl csv
 
   let from_csv csv =
     let headers = csv |> header_row |> Header.Parser.parse_all in

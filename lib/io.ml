@@ -1,6 +1,9 @@
 module Files = struct
-  let get_absolute_file_path file = file |> Util.T.unquote |> Filename_unix.realpath
-  let is_valid_path path = path |> get_absolute_file_path |> Sys.file_exists
+  let[@inline] get_absolute_file_path file =
+    file |> Util.T.unquote |> Filename_unix.realpath
+  ;;
+
+  let[@inline] is_valid_path path = path |> get_absolute_file_path |> Sys.file_exists
 
   let set_working_directory input =
     let full_path = input |> get_absolute_file_path in
