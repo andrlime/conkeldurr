@@ -9,7 +9,7 @@ on:
       - "main"
 
 jobs:
-  compile:
+  lint-and-test:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -40,7 +40,7 @@ jobs:
         run: opam install . --deps-only
 
       - name: Run lint
-        run: eval $(opam env) && dune fmt --check
+        run: eval $(opam env) && dune fmt
 
       - name: Run tests
         run: eval $(opam env) && dune test
