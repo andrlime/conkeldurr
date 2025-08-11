@@ -1,6 +1,19 @@
 open Conkeldurr
 
-let%expect_test "end to end test setup" = Sys.chdir "./cases"
+let%expect_test "end to end test setup" =
+  Sys.chdir "./cases";
+  Sys.readdir "./"
+  |> Array.to_list
+  |> List.iter print_endline;
+  [%expect {|
+  fail_dupe_sheet_name.sexp
+  fail_dupe_interface.sexp
+  long_program_test.sexp
+  fail_dupe_variable.sexp
+  basic_program_test.sexp
+  data
+  |}]
+;;
 
 let%expect_test "passes basic end to end test" =
   Entry.entry_point "basic_program_test.sexp";
