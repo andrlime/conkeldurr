@@ -3,11 +3,7 @@
 ![Conkeldurr](logo.png)
 
 ## Summary
-This is a domain specific language powered by OCaml that bridges CSV (and soon, maybe other) data into Typescript files with specific variable names and ordering for build-time importing by a React app, i.e. a build-time content organisation system. Additionally, to inject dynamic image content, this app supports uploading images to an AWS S3 bucket to not require importing images in frameworks like Vite.
-
-A nice future direction is to support non-structured data (so like JSON, but in a more human-editable format) and support enum types.
-
-## Overview
+This is a domain specific language powered by OCaml that bridges CSV (and soon, maybe other) data into TypeScript files with specific variable names and ordering for build-time importing by a React app, i.e. a build-time content organisation system.
 
 The goal of this project is to stream CSV data as a build-time CDN into a React app. Obviously, the data can be put as
 ```ts
@@ -39,10 +35,13 @@ export const spreadsheet_123: Array<INTERFACE_123> = [
 	{...},
 ]
 ```
-To minimally support types, the CSV header is modified to look like
-```csv
-id:number,name:string
+To support types, CSV headers are comma-separated s-expressions like
 ```
-which indicates that `id` should be number-ified, `name` is a string.. The only raw types that are supported here are `number` and `string`.
+(String colname),(Number colname2)
+```
 
-The format of all column names are s-expressions like `(String columnname)`. This is to ease parsing in OCaml.
+## Todo
+- [ ] Implement joins between spreadsheets
+- [ ] Implement enum types
+- [ ] Improve error messages to be less dense
+- [ ] Quotes in CSV rows cause a crash
