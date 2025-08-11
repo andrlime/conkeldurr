@@ -2,6 +2,7 @@ open Sexplib.Std
 
 module T = struct
   type t =
+    | Enum of string * string (* (type * name) *)
     | String of string
     | Boolean of string
     | Float of string
@@ -14,6 +15,7 @@ module T = struct
 
   let to_string hdr =
     match hdr with
+    | Enum (t, s) -> s ^ ": " ^ t ^ ";"
     | String s -> s ^ ": string;"
     | Boolean s -> s ^ ": boolean;"
     | Float s -> s ^ ": number;"
@@ -23,6 +25,7 @@ module T = struct
 
   let get_string hdr =
     match hdr with
+    | Enum (_, s) -> s
     | String s -> s
     | Boolean s -> s
     | Float s -> s

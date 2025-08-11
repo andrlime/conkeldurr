@@ -1,5 +1,6 @@
 module Value : sig
   type record_type =
+    | Enum of string
     | String of string
     | Integer of int
     | Float of float

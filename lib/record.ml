@@ -2,6 +2,7 @@ open Sexplib.Std
 
 module Value = struct
   type record_type =
+    | Enum of string
     | String of string
     | Integer of int
     | Float of float
@@ -13,6 +14,12 @@ module Value = struct
     ; value : record_type
     }
   [@@deriving sexp]
+
+  let parse_enum str = 
+    if not (Variable.T.is_valid str) then
+    failwith ("invalid enum name " ^ str);
+    Enum str
+  ;;
 
   let parse_string str = String str
 
@@ -38,6 +45,7 @@ module Value = struct
 
   let from_header (header, element) =
     match (header : Header.T.t) with
+    | Enum (_, name) -> { name ; value = parse_enum element }
     | String name -> { name; value = parse_string element }
     | Boolean name -> { name; value = parse_boolean element }
     | Integer name -> { name; value = parse_integer element }
@@ -46,6 +54,7 @@ module Value = struct
 
   let get_value t =
     match t with
+    | Enum e -> e
     | String s -> Util.T.quote s
     | Integer i -> string_of_int i
     | Float f -> string_of_float f
