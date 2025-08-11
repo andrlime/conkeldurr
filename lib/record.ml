@@ -17,8 +17,8 @@ module RecordValue = struct
   let parse_string str = String str
 
   let parse_boolean str =
-    match str with
-    | "false" | "False" | "0" | "FALSE" -> Boolean false
+    match String.lowercase_ascii str with
+    | "false" | "0" -> Boolean false
     | _ -> Boolean true
   ;;
 
