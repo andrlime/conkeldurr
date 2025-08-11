@@ -1,6 +1,6 @@
 open Conkeldurr
 
-let%expect_test "passes end to end testt" =
+let%expect_test "passes end to end test" =
   Sys.chdir "./cases";
   Entry.entry_point "basic_program_test.sexp";
   [%expect

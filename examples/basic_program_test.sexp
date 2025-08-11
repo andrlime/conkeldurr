@@ -4,5 +4,5 @@
 	(ReadVariable ((var "thing3") (value (Float 3.14))))
 	(ReadConstant ((var "thing5") (value (String "a afsdafds afsdsa"))))
 	(ReadSpreadsheet ((var "spreadsheet_123") (interface "SomeType") (path (Csv "./data/sample_spreadsheet.csv"))))
-	(Export (File test.ts))
+	(Export (File "test.ts"))
 )
