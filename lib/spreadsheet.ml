@@ -17,9 +17,8 @@ module CsvSpreadsheet = struct
   let from_path path = Csv.load path
 
   let from_csv csv =
-    let headers =
-      csv |> header_row |> List.map Header.Parser.parse |> Header.Parser.check_duplicates
-    in
+    let headers = csv |> header_row |> List.map Header.Parser.parse in
+    ignore (headers |> Header.Parser.check_duplicates);
     let records = csv |> body_rows |> List.map (Record.T.from_list headers) in
     { headers; records }
   ;;
