@@ -10,7 +10,7 @@ module T = struct
 
   let set_key store key value =
     match Hashtbl.mem store.data key with
-    | true -> raise (Failure ("variable " ^ key ^ " already set"))
+    | true -> failwith ("variable " ^ key ^ " already set")
     | false -> Hashtbl.add store.data key value
   ;;
 
