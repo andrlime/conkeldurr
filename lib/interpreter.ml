@@ -72,7 +72,8 @@ module T = struct
   let reset_state state =
     Store.T.clear state.variable_store;
     Store.T.clear state.spreadsheet_store;
-    Store.T.clear state.interface_set
+    Store.T.clear state.interface_set;
+    Store.T.clear state.import_store
   ;;
 
   let interpret_node state node =
