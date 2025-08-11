@@ -1,7 +1,8 @@
-val is_not_space : char -> bool
-val quote : string -> string
-val unquote : string -> string
-val get_absolute_file_path : string -> string
-val set_working_directory : string -> string
+module Files : sig
+  val get_absolute_file_path : string -> string
+  val is_valid_path : string -> bool
+  val set_working_directory : string -> string
+end
+
 val read_file : string -> string
 val write_file : string -> string -> unit

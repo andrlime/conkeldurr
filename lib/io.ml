@@ -1,22 +1,13 @@
-let is_not_space char = char <> ' ' && char <> '\t'
-let quote str = "\"" ^ str ^ "\""
+module Files = struct
+  let get_absolute_file_path file = file |> Util.T.unquote |> Filename_unix.realpath
+  let is_valid_path path = path |> get_absolute_file_path |> Sys.file_exists
 
-let unquote str =
-  let firstchar = String.get str 0 in
-  let lastindex = String.length str - 1 in
-  let lastchar = String.get str lastindex in
-  match firstchar, lastchar with
-  | '"', '"' -> String.sub str 1 (lastindex - 1)
-  | _, _ -> str
-;;
-
-let get_absolute_file_path file = file |> unquote |> Filename_unix.realpath
-
-let set_working_directory input =
-  let full_path = input |> get_absolute_file_path in
-  full_path |> Filename.dirname |> Sys.chdir;
-  full_path
-;;
+  let set_working_directory input =
+    let full_path = input |> get_absolute_file_path in
+    full_path |> Filename.dirname |> Sys.chdir;
+    full_path
+  ;;
+end
 
 let read_file path =
   let channel = open_in path in
@@ -27,7 +18,17 @@ let read_file path =
 ;;
 
 let write_file path content =
+  let dated_content =
+    Printf.sprintf
+      {|// This file was auto-generated. DO NOT modify this file by hand.
+  // Generated on %s
+  %s
+    |}
+      (Util.T.get_current_date ())
+      content
+  in
   let channel = open_out path in
-  output_string channel content;
+  output_string channel (dated_content |> String.trim);
+  output_string channel "\n";
   close_out channel
 ;;
