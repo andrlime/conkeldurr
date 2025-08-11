@@ -2,6 +2,7 @@ open Sexplib.Std
 
 module T = struct
   type t =
+    | Enum of string * string
     | String of string
     | Integer of int
     | Float of float
@@ -14,6 +15,7 @@ module T = struct
 
   let get_type t =
     match t with
+    | Enum (t, _) -> t
     | String _ -> "string"
     | Integer _ -> "number"
     | Float _ -> "number"
@@ -22,6 +24,7 @@ module T = struct
 
   let get_value t =
     match t with
+    | Enum (_, e) -> e
     | String s -> Util.T.quote s
     | Integer i -> string_of_int i
     | Float f -> string_of_float f

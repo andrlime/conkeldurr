@@ -1,4 +1,4 @@
-(String a),(String b),(String c),(Float ab),(Integer bc),(Boolean cd),(Number de)
+(Enum Type a),(String b),(String c),(Float ab),(Integer bc),(Boolean cd),(Number de)
 Alpha,Beta,Gamma,0.5,10,true,3
 Delta,Echo,Foxtrot,1.2,21,false,7
 Giga,Hera,Iota,2.4,32,true,5

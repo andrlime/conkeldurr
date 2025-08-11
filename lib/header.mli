@@ -1,5 +1,6 @@
 module T : sig
   type t =
+    | Enum of string * string (* (type * name) *)
     | String of string
     | Boolean of string
     | Float of string
