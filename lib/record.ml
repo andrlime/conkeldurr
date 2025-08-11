@@ -51,4 +51,6 @@ module T = struct
   let from_list headers list =
     List.combine headers list |> List.map RecordValue.from_header
   ;;
+
+  let to_string t = t |> sexp_of_t |> Sexplib.Sexp.to_string
 end

@@ -14,6 +14,7 @@ module T = struct
   [@@deriving sexp]
 
   let of_string hdr = hdr |> Sexplib.Sexp.of_string |> t_of_sexp
+  let to_sexp_string hdr = hdr |> sexp_of_t |> Sexplib.Sexp.to_string
 
   let to_string hdr =
     match hdr with
@@ -44,7 +45,10 @@ module Parser = struct
       let header_name = T.get_string hdr in
       if Hashtbl.mem seen header_name
       then raise (Failure "Cannot have duplicate columns")
-      else Hashtbl.add seen header_name ());
-    headers
+      else Hashtbl.add seen header_name ())
   ;;
+
+  let parse_all headers = headers |> List.map parse
 end
+
+type t = T.t list [@@deriving sexp]

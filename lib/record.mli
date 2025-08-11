@@ -21,4 +21,5 @@ module T : sig
 
   val sexp_of_t : t -> Sexplib0.Sexp.t
   val from_list : Header.T.t list -> string list -> t
+  val to_string : t -> string
 end

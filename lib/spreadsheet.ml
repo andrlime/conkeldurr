@@ -15,13 +15,19 @@ module CsvSpreadsheet = struct
   let body_rows csv = List.tl csv
 
   let from_csv csv =
-    let headers = csv |> header_row |> List.map Header.Parser.parse in
-    ignore (headers |> Header.Parser.check_duplicates);
+    let headers = csv |> header_row |> Header.Parser.parse_all in
+    headers |> Header.Parser.check_duplicates;
     let records = csv |> body_rows |> List.map (Record.T.from_list headers) in
     { headers; records }
   ;;
 
-  let from_string str = Csv.of_string str |> Csv.input_all |> from_csv
+  let from_string str =
+    Csv.of_string str
+    |> Csv.input_all
+    |> List.filter (fun line -> String.length (String.concat "" line) > 0)
+    |> from_csv
+  ;;
+
   let from_path path = Csv.load path |> from_csv
   let get_json _ = ""
   let get_interface _ = ""
