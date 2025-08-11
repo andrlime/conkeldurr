@@ -1,10 +1,6 @@
 open Sexplib.Std
 
 module T = struct
-  type number_type =
-    | I of int
-    | F of float
-
   type t =
     | String of string
     | Boolean of string
@@ -18,11 +14,11 @@ module T = struct
 
   let to_string hdr =
     match hdr with
-    | String s -> "String " ^ s
-    | Boolean s -> "Boolean " ^ s
-    | Float s -> "Float " ^ s
-    | Integer s -> "Integer " ^ s
-    | Number s -> "Number " ^ s
+    | String s -> s ^ ": string;"
+    | Boolean s -> s ^ ": boolean;"
+    | Float s -> s ^ ": number;"
+    | Integer s -> s ^ ": number;"
+    | Number s -> s ^ ": number;"
   ;;
 
   let get_string hdr =

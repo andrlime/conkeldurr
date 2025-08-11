@@ -1,6 +1,6 @@
 open Sexplib.Std
 
-module RecordValue = struct
+module Value = struct
   type record_type =
     | String of string
     | Integer of int
@@ -43,14 +43,25 @@ module RecordValue = struct
     | Integer name -> { name; value = parse_integer element }
     | Float name | Number name -> { name; value = parse_float element }
   ;;
+
+  let get_value t =
+    match t with
+    | String s -> Io.quote s
+    | Integer i -> string_of_int i
+    | Float f -> string_of_float f
+    | Boolean b -> string_of_bool b
+  ;;
+
+  let to_json t = Printf.sprintf "%s: %s" t.name (get_value t.value)
 end
 
 module T = struct
-  type t = RecordValue.t list [@@deriving sexp]
+  type t = Value.t list [@@deriving sexp]
 
-  let from_list headers list =
-    List.combine headers list |> List.map RecordValue.from_header
-  ;;
-
+  let from_list headers list = List.combine headers list |> List.map Value.from_header
   let to_string t = t |> sexp_of_t |> Sexplib.Sexp.to_string
+
+  let to_json t =
+    t |> List.map Value.to_json |> String.concat ", " |> Printf.sprintf "\t{ %s }"
+  ;;
 end

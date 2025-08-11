@@ -3,13 +3,13 @@ open Conkeldurr
 let%expect_test "parse string headers" =
   let header = "(String abc)" in
   header |> Header.Parser.parse |> Header.T.to_string |> print_endline;
-  [%expect {| String abc |}]
+  [%expect {| abc: string; |}]
 ;;
 
 let%expect_test "parse float headers" =
   let header = "(Float abc)" in
   header |> Header.Parser.parse |> Header.T.to_string |> print_endline;
-  [%expect {| Float abc |}]
+  [%expect {| abc: number; |}]
 ;;
 
 let%expect_test "parse multiple headers" =
@@ -24,7 +24,7 @@ let%expect_test "parse multiple headers" =
 
 let%expect_test "parse from csv" =
   let csv =
-    Spreadsheet.CsvSpreadsheet.from_string
+    Spreadsheet.Csv0.from_string
       {|
       (String a),(String b),(String c),(Float ab),(Integer bc),(Boolean cd)
       A,B,C,1.0,2,false

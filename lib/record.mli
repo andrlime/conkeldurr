@@ -1,4 +1,4 @@
-module RecordValue : sig
+module Value : sig
   type record_type =
     | String of string
     | Integer of int
@@ -14,12 +14,14 @@ module RecordValue : sig
 
   val sexp_of_t : t -> Sexplib0.Sexp.t
   val from_header : Header.T.t * string -> t
+  val to_json : t -> string
 end
 
 module T : sig
-  type t = RecordValue.t list
+  type t = Value.t list
 
   val sexp_of_t : t -> Sexplib0.Sexp.t
   val from_list : Header.T.t list -> string list -> t
   val to_string : t -> string
+  val to_json : t -> string
 end

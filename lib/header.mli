@@ -1,8 +1,4 @@
 module T : sig
-  type number_type =
-    | I of int
-    | F of float
-
   type t =
     | String of string
     | Boolean of string

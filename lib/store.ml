@@ -1,10 +1,6 @@
 module T = struct
   type 'a t = { data : (string, 'a) Hashtbl.t }
 
-  type result =
-    | Success
-    | Failure of string
-
   let create () =
     let table = Hashtbl.create 97 in
     { data = table }
@@ -12,17 +8,11 @@ module T = struct
 
   let set_key store key value =
     match Hashtbl.mem store.data key with
-    | true -> Failure ("variable " ^ key ^ " already set")
-    | false ->
-      Hashtbl.add store.data key value;
-      Success
+    | true -> raise (Failure ("variable " ^ key ^ " already set"))
+    | false -> Hashtbl.add store.data key value
   ;;
 
-  let get_key store key =
-    ignore (Hashtbl.find store.data key);
-    Success
-  ;;
-
+  let get_key store key = Hashtbl.find store.data key
   let to_list store = Hashtbl.fold (fun k v acc -> (k, v) :: acc) store.data []
 
   let to_string store generator =
