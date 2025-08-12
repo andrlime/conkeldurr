@@ -5,8 +5,8 @@ module Keywords : sig
 end
 
 (*
-Checks if a variable name is a valid variable name 
-Also checks if an enum name is valid, which could look like Enum.Type  
+   Checks if a variable name is a valid variable name 
+Also checks if an enum name is valid, which could look like Enum.Type
 *)
 module ValidName : sig
   val check : string -> bool

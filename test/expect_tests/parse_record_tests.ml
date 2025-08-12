@@ -17,6 +17,18 @@ let%expect_test "parse records from csv string" =
   |}]
 ;;
 
+let%expect_test "check that single quotes parse" =
+  let csv =
+    Spreadsheet.Csv0.from_string
+      {|
+      (String a)
+      "'"
+      |}
+  in
+  csv.records |> List.map Record.T.to_string |> List.iter print_endline;
+  [%expect {| (((name a)(value(String ')))) |}]
+;;
+
 let%expect_test "parse records from csv file" =
   let csv = Spreadsheet.Csv0.from_path "./cases/data/sample_spreadsheet.csv" in
   csv.records |> List.map Record.T.to_string |> List.iter print_endline;

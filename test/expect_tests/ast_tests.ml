@@ -55,7 +55,7 @@ let%expect_test "parses Export correctly" =
   sample_sexp |> Program.T.of_string |> Program.T.to_readable_string |> print_endline;
   [%expect
     {|
-  Export to file abc.csv
-  Export to stdout
-  |}]
+    Export to file abc.csv
+    Export to stdout
+    |}]
 ;;

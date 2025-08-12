@@ -24,7 +24,7 @@ module Value = struct
 
   let parse_boolean str =
     match String.lowercase_ascii str with
-    | "false" | "0" -> Boolean false
+    | "false" | "0" | "" -> Boolean false
     | _ -> Boolean true
   ;;
 

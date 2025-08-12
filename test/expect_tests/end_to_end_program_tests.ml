@@ -131,7 +131,7 @@ let%expect_test "passes long end to end test" =
     };
 
     export const spreadsheet_456: Array<SomeType2> = [
-    { a: Alpha, b: "Beta", c: "Gamma", ab: 0.5, bc: 10, cd: true, de: 3. },
+    { a: T.Alpha, b: "Beta", c: "Gamma", ab: 0.5, bc: 10, cd: true, de: 3. },
     { a: Delta, b: "Echo", c: "Foxtrot", ab: 1.2, bc: 21, cd: false, de: 7. },
     { a: Giga, b: "Hera", c: "Iota", ab: 2.4, bc: 32, cd: true, de: 5. },
     { a: Juno, b: "Kilo", c: "Lima", ab: 3.7, bc: 43, cd: false, de: 8. },
