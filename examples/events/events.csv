@@ -1,0 +1,9 @@
+(String title),(String facilitator),(String date),(String location),(Number duration_hours),(Number capacity)
+Effective Communication,Jane Smith,2025-09-15,Room 201,2,30
+Time Management Basics,Robert Lee,2025-09-20,Room 105,1,25
+Conflict Resolution,Maria Gomez,2025-09-22,Room 207,2,20
+Workplace Safety 101,David Chen,2025-09-25,Main Auditorium,3,100
+Intro to Project Management,Emily Davis,2025-09-28,Room 301,2,35
+Inclusive Leadership,Michael Thompson,2025-10-01,Room 102,2,25
+Cybersecurity Awareness,Sarah Patel,2025-10-05,Room 208,1,50
+Health and Wellness Seminar,Linda Roberts,2025-10-07,Room 106,1,40

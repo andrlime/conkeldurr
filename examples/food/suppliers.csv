@@ -1,0 +1,5 @@
+(String supplier_id),(String name),(String city),(Number lead_time_days),(String contact_email)
+S-01,FarmFresh Produce,Springfield,2,orders@farmfresh.example
+S-02,Daily Dairy,Oakridge,3,sales@dailydairy.example
+S-03,Grain & Bake,Riverside,4,hello@grainbake.example
+S-04,Roast Roastery,Lakeview,2,team@roastroastery.example

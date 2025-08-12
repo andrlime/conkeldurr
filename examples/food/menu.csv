@@ -1,0 +1,7 @@
+(String id),(String name),(String category),(Number price_usd),(Number calories)
+M-101,Margherita Pizza,Entree,10.5,720
+M-102,Grilled Chicken Salad,Entree,9.0,410
+M-103,Tomato Soup,Starter,4.5,180
+M-104,Garlic Bread,Side,3.0,250
+M-105,Cold Brew,Coffee,3.5,5
+M-106,Blueberry Muffin,Dessert,2.8,390

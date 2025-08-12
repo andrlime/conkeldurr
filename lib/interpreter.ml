@@ -87,7 +87,7 @@ module T = struct
       reset_state state
   ;;
 
-  let create_blank_state () =
+  let[@inline] create_blank_state () =
     { variable_store = Store.T.create ()
     ; spreadsheet_store = Store.T.create ()
     ; interface_set = Store.T.create ()

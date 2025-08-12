@@ -11,7 +11,6 @@ let%expect_test "passes basic end to end test" =
     export const thing5: string = "a afsdafds afsdsa";
     export const thing: string = "ABCDEF";
     export let thing3: number = 3.14;
-
     export interface SomeType {
     a: string;
     b: string;
@@ -34,7 +33,6 @@ let%expect_test "passes enums end to end test" =
     {|
     import { Something } from "some-file.ts";
     export const apple: Fruit = Apple;
-
     export interface Type {
     a: Something;
     };
@@ -56,7 +54,6 @@ let%expect_test "passes long end to end test" =
     import { SomeEnum } from "some-file.ts";
     import { SomeOtherEnum } from "some-other-file.ts";
     export const dataset_name: string = "PEOPLE_NAMES";
-
     export interface Person {
     index: number;
     firstname: string;
@@ -108,7 +105,6 @@ let%expect_test "passes long end to end test" =
     import { SomeOtherEnum2 } from "some-other-file.ts";
     export const thing2: number = 123;
     export const thing: string = "ABCDEF";
-
     export interface SomeType {
     a: string;
     b: string;
