@@ -290,3 +290,35 @@ let%expect_test "fails on duplicate imported modules" =
     print_endline msg;
     [%expect {| variable SomeEnum already set |}]
 ;;
+
+let%expect_test "passes chdir end to end test" =
+  Entry.entry_point "chdir_program_test.sexp";
+  [%expect
+    {|
+    export interface interface1 {
+    col: string;
+    };
+
+    export const sheet1: Array<interface1> = [
+    { col: "A" }
+    ];
+
+
+    export interface interface2 {
+    col: string;
+    };
+
+    export const sheet2: Array<interface2> = [
+    { col: "B" }
+    ];
+
+
+    export interface interface3 {
+    col: string;
+    };
+
+    export const sheet3: Array<interface3> = [
+    { col: "C" }
+    ];
+    |}]
+;;

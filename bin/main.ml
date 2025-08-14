@@ -1,6 +1,7 @@
 open Conkeldurr
 open Cmdliner
 
+let version = "1.0a"
 let conkeldurr_process_file file = file |> Entry.entry_point
 
 let input_file_arg =
@@ -10,7 +11,7 @@ let input_file_arg =
 
 let main_cmd =
   let term = Term.(const conkeldurr_process_file $ input_file_arg) in
-  Cmd.v (Cmd.info "conkeldurr" ~version:"%%VERSION%%") term
+  Cmd.v (Cmd.info "conkeldurr" ~version) term
 ;;
 
 let main () = Cmd.eval main_cmd

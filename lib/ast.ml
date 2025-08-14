@@ -76,6 +76,12 @@ module Export = struct
   ;;
 end
 
+module Chdir = struct
+  type t = string [@@deriving sexp]
+
+  let to_string node = Printf.sprintf "Chdir to %s" node
+end
+
 module Node = struct
   type t =
     | ReadConstant of ReadConstant.t
@@ -83,6 +89,7 @@ module Node = struct
     | ReadSpreadsheet of ReadSpreadsheet.t
     | Import of Import.t
     | Export of Export.t
+    | Chdir of Chdir.t
   [@@deriving sexp]
 
   let to_string node =
@@ -92,5 +99,6 @@ module Node = struct
     | ReadSpreadsheet n -> ReadSpreadsheet.to_string n
     | Import n -> Import.to_string n
     | Export n -> Export.to_string n
+    | Chdir n -> Chdir.to_string n
   ;;
 end

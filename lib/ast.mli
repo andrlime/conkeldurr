@@ -58,6 +58,14 @@ module Export : sig
   val to_string : t -> string
 end
 
+module Chdir : sig
+  type t = string [@@deriving sexp]
+
+  val t_of_sexp : Sexplib0.Sexp.t -> t
+  val sexp_of_t : t -> Sexplib0.Sexp.t
+  val to_string : t -> string
+end
+
 (* Node is a node in the AST tree *)
 module Node : sig
   type t =
@@ -66,6 +74,7 @@ module Node : sig
     | ReadSpreadsheet of ReadSpreadsheet.t
     | Import of Import.t
     | Export of Export.t
+    | Chdir of Chdir.t
 
   val t_of_sexp : Sexplib0.Sexp.t -> t
   val sexp_of_t : t -> Sexplib0.Sexp.t
