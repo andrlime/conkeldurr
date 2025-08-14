@@ -5,6 +5,7 @@ module T : sig
     ; spreadsheet_store : Spreadsheet.t Store.T.t
     ; interface_set : Variable.T.t Store.T.t
     ; import_store : Variable.T.t Store.T.t
+    ; root_directory : string
     }
 
   val interpret_node : state -> Ast.Node.t -> unit

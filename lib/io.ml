@@ -1,13 +1,20 @@
 module Files = struct
+  exception Io_exception of string
+
   let[@inline] get_absolute_file_path file =
     file |> Util.T.unquote |> Filename_unix.realpath
   ;;
 
   let[@inline] is_valid_path path = path |> get_absolute_file_path |> Sys.file_exists
 
+  let[@inline] cd dir =
+    try Sys.chdir dir with
+    | Sys_error msg -> raise (Io_exception msg)
+  ;;
+
   let set_working_directory input =
     let full_path = input |> get_absolute_file_path in
-    full_path |> Filename.dirname |> Sys.chdir;
+    full_path |> Filename.dirname |> cd;
     full_path
   ;;
 end

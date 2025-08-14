@@ -4,6 +4,7 @@ module T = struct
     ; spreadsheet_store : Spreadsheet.t Store.T.t
     ; interface_set : Variable.T.t Store.T.t
     ; import_store : Variable.T.t Store.T.t
+    ; root_directory : string
     }
 
   let interpret_read_constant state (node : Ast.ReadConstant.t) =
@@ -76,6 +77,17 @@ module T = struct
     Store.T.clear state.import_store
   ;;
 
+  let interpret_chdir state (node : Ast.Chdir.t) =
+    let cwd = Sys.getcwd () in
+    try
+      Io.Files.cd state.root_directory;
+      Io.Files.cd node
+    with
+    | Io.Files.Io_exception msg ->
+      Io.Files.cd cwd;
+      failwith msg
+  ;;
+
   let interpret_node state node =
     match node with
     | Ast.Node.ReadConstant n -> interpret_read_constant state n
@@ -85,6 +97,7 @@ module T = struct
     | Ast.Node.Export n ->
       interpret_export state n;
       reset_state state
+    | Ast.Node.Chdir n -> interpret_chdir state n
   ;;
 
   let[@inline] create_blank_state () =
@@ -92,6 +105,7 @@ module T = struct
     ; spreadsheet_store = Store.T.create ()
     ; interface_set = Store.T.create ()
     ; import_store = Store.T.create ()
+    ; root_directory = Sys.getcwd ()
     }
   ;;
 

@@ -45,6 +45,16 @@ let%expect_test "parses ReadSpreadsheet correctly" =
   |}]
 ;;
 
+let%expect_test "parses Import correctly" =
+  let sample_sexp =
+    {|
+  ((Import ((var SomeEnum) (from some-file.ts))))
+  |}
+  in
+  sample_sexp |> Program.T.of_string |> Program.T.to_readable_string |> print_endline;
+  [%expect {| Import SomeEnum from some-file.ts |}]
+;;
+
 let%expect_test "parses Export correctly" =
   let sample_sexp =
     {|
@@ -57,5 +67,22 @@ let%expect_test "parses Export correctly" =
     {|
     Export to file abc.csv
     Export to stdout
+    |}]
+;;
+
+let%expect_test "parses Chdir correctly" =
+  let sample_sexp =
+    {|(
+    (Chdir "some_folder1")
+    (Chdir "some_folder2")
+    (Chdir "some_folder3")
+  )|}
+  in
+  sample_sexp |> Program.T.of_string |> Program.T.to_readable_string |> print_endline;
+  [%expect
+    {|
+    Chdir to some_folder1
+    Chdir to some_folder2
+    Chdir to some_folder3
     |}]
 ;;
